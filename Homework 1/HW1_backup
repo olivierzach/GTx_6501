@@ -1,0 +1,60 @@
+# Homework 1 notes
+
+check knn vs. true classification error for 2.2.3
+3.1, 3.2
+
+may have to refigure out code to extact classification accuracy
+rather than just reporting MAE and MSE
+
+also notice that MAE is the same for k = (58, 30, 20, 10)
+
+check documentation to see what the output of train.kknn is
+ - minimal mean absolute error
+ - minimal mean squared error
+
+
+
+
+
+ # set up list of possible K values from 1 to 100 by 3
+possible_k <- as.list(seq(from = 1, to = 100, by = 3))
+
+# set up a blank list to put accuracy values into
+test_accuracy <- list()
+
+# fit a model for each possible value of K and extract the accuracy from each model
+for (i in seq_along(possible_k)) {
+
+        k = possible_k[[i]]
+
+        knn_fit <- kknn(
+                response_y ~ .,
+                train = train,
+                test = test,
+                # valid = validation$response_y,
+                k = k,
+                scale = T)
+
+        fitted <- fitted(knn_fit) %>%
+             as_tibble() %>%
+             mutate(value = ifelse(value > .5, 1, 0)) %>%
+             cbind(., test$response_y) %>%
+             mutate(acc = value == test$response_y)
+
+        test_accuracy[[i]] <- mean(fitted$acc)
+
+}
+
+# put the K and test accuracy lists into dataframes
+k_df <- reduce(possible_k, rbind.data.frame)
+test_acc_df <- reduce(test_accuracy, rbind.data.frame)
+
+# find the best K associated with the highest accuracy
+(performance_test <- cbind(k_df, test_acc_df) %>%
+        rename(
+                'knn_error' = !!names(.[2]),
+                'knn_k' =  !!names(.[1])
+        ) %>%
+        filter(knn_error == max(knn_error)) %>%
+        arrange(., knn_k) %>%
+        .[1,])
