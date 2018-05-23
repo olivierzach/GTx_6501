@@ -1,0 +1,39 @@
+# Week 1 Introduction To Analytics Modeling - GTX
+ISYE 6501
+
+- Introduction to Analytics Modeling
+
+answer important types of questions:
+  what happened? = descriptive
+  what is going to happen? = predictive
+  what actions are best? = prescriptive
+  how do we create value with data?
+
+when can analytics answer these questions?
+
+Modeling: taking a real life situation and expressing it in math
+analyze in math and turn it into a solution
+
+best ways to learn: ask questions, discuss answers
+
+Course Structure:
+- knowledge building
+- experience building based on knowledge built in part 1
+
+Knowledge Building:
+  Models - learn all the models
+  Cross Cutting - data prep, output quality, missing data
+  will include mathematical intuition but keep it agile
+  all developed with situations and examples
+  basic mathematical detail
+
+Experience Based:
+  case studies
+  practice using models
+  practice using models using the commonly used analytics softwares
+  make sure you learn key basic concepts
+  link material with real analytic questions
+  develop learning beyond the videos
+  learn to use software without being told exactly what to do
+
+Summary: knowledge building and then experience

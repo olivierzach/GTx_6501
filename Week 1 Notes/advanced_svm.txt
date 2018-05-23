@@ -1,0 +1,77 @@
+Advanced SVM
+
+this lesson looks at extensions of the basic support vector machine model
+
+how do we account for most costly classification errors?
+
+how do we prepare the data before running an SVM model?
+
+can we use other types of classifiers to do the same job?
+
+
+SVM = classifier to find the maximum separation or margin between two sets of
+data points
+
+if it is impossible to avoid classification errors we can use SVM to find a
+classifier that trades off reducing errors and enlarging the margin
+
+enlarging the margin reduces variance - large margin classifiers will not
+misclassify on new data because the space is large between the two groups!
+this means small changes in data will still be correctly classified!
+
+
+costly errors - we can shift our classifier to be more conservative
+
+the true classifier is based on an intercept that in our example can range from
+1 to -1
+
+we can modify our intercept based on cost to shift this classify up or down -
+all within the space defined by the margin
+
+we do this by weighting or reducing the intercept based on cost!
+
+in a soft classification context - we could add and extra parameter to the
+total error side of the SVM equation
+larger the penalty the less we want to accept misclassifying the data
+our penalty can be different based on what costly errors we want to be opposed to
+
+example:
+  mj > 1 for more costly errors
+  mj < 1 for less costly errors
+  mj is our penalty multiplied to the total error side of our SVM equation
+
+
+remember: we are trying to minimize the sum of squared coefficients - the difference
+between the classifier line and the data points
+
+if our data is not scaled we could run into problems
+ ex. credit score 350 - 850 range
+ ex. HHI the range could be in the millions
+ the coefficient values could be different by three orders of magnitude
+ when we are adding their squares a small change in one could swamp a huge
+ change in the other!!
+
+we need to scale our data before running SVM
+
+once the data is scaled we can pick out attributes that are not needed for classification
+
+remember - the vertical line classifier
+with many attributes how do we see which ones matter?
+
+if a coefficient is close to zero - that attribute is not important for classification
+we may not need that variable to classify our data points!
+
+summary:
+
+we know what classification is
+we know what it looks like in two dimensions
+and we know what it looks like in pictures and in math
+
+does SVM work the same way in more dimensions - yes!
+does a classifier have to be a straight line - no!
+we can modify our straight line classifier to more flexible lines using kernels
+kernels map specific functions to more flexible boundaries to better classify results
+this can produce a 'curvy line' svm to classify data!
+there are many other methods! like probability!
+is there a 37% chance of default - logistic regression
+are there other approaches to classification - yes and many for multiple classes!

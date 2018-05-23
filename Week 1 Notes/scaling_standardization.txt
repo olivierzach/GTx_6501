@@ -1,0 +1,70 @@
+Scaling and Standardization
+
+two common data preparation tasks - scaling and standardization of our data points
+
+consider this example:
+ - svm model
+ - classifying loan applicants into credit risk categories
+ - based on credit score, and household income
+ - these variables are scaled very differently
+ - we aim to draw to parallel lines that correctly classify each point while...
+ - maximizing the margin between the two parallel lines
+ - the actual classifier is the line exactly between these parallel points
+
+the classifier is the line 0 = a0 + Σ aj * xj
+we maximize the gap by minimizing Σ aj^2
+
+the sum of squared coefficients: Σ aj^2 = 5^2 + 700^2 = 490,025
+
+what if we make a small change to the credit score coefficient?
+
+new sum of squared coefficients: Σ aj^2 = 5^2 + 701^2 = 491,426 (+1,401)
+
+how much would we need to change the income coefficient to get this same level?
+
+new sum of squared coefficients: Σ aj^2 = 37.8^2 + 700^2 = 491,426
+  - this requires a large difference in the first coefficient
+  - our resulting line is very different from the original line
+  - data is not on the same scale
+  - small changes to the large magnitude variable: huge swings in our plotted line
+  - large changes to the small magnitude variable: little swing in plotted line
+
+ the sum of squared coefficients will be sensitive to changes in coefficients
+ our SVM model will not perform well
+
+ Scaling Data:
+ we scale our data down to the same interval
+ common scaling: data between 0 and 1
+ scale factor by factor:
+  - let xminj be the min of xij
+  - let xmaxj be max xij
+  - for each data point i:
+     - xij scaled = (xij - xminj) / (x maxj - xmin j)
+
+general scaling between B and A:
+  - xij scaled = xij scaled[0,1] * (A - B) + B
+
+
+Standardization:
+scaling to a normal distribution
+scaling to a mean of 0 and a standard deviation of 1
+factor j has mean uj = (Σ xij) / n
+factor j has a standard devation of σj
+for each data point i:
+  - xij standardized = (xij - uj) / σj
+
+
+when do we want to use these?
+
+scaling - important to have data within a bounded range
+   - nueral networks
+   - optimization
+   - we need values to be restricted between certain values
+
+standardization - important to use in PCA and clustering
+
+in some cases its not clear which works better!
+
+it is often necessary to scale or standardize the input data
+should be used throughout this course
+'its not just a good idea - it's the law' = not quite but it is a good idea

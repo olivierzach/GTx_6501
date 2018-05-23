@@ -1,0 +1,140 @@
+# Office Hours May 17th 2018
+general office hours regarding course structure
+discussion of C and trade-off between margin and accuracy / error in ksvm
+programming recitation on R basics
+insight into HW 1
+
+course is 12 weeks long
+piazza is the main source of communication with class
+will be for professors and TAs
+will monitor discussion board to make sure questions are answered
+
+ISYE 6501X  is the official piazza board
+you can post private and public questions
+you can email the instructors exactly
+
+the first homework has more information to help get used to the homework structure
+also get used to the submission structure
+get used to coding in R and functions and the data manipulation this course will take
+
+Homework 1 gets you up to speed with what is expected
+do we need to review certain courses? - homework 1 will let you know
+
+homework 1 due May 23rd
+we are compressing 15 weeks worth of material in 12 weeks
+course will cover a lot of material very fast
+we will ramp the fuck up - strap in bitch
+can you handle the speed bitch!?
+
+5 mins per video about 2 hours per week
+homeworks are usually more coding and should be around 10-15 hours per week
+homework are based on videos but we will need outside information
+the material the homework covers will be in the homework...
+but the programming to do the homework is NOT covered!
+learn this shit and google it
+
+use the R documentation read this first!
+get it from the source!! pure information!!
+
+notes will come during the weekend for general R help
+also check out lynda.com for R help - can use GTx credential
+
+homework:
+
+Question 1: general question
+
+Question 2: svm and knn
+
+Question 3: svm and knn and cross validation
+
+for kknn we need to make additional models for each dataset?
+loop through each observation to fit a model?
+
+both datasets will work - they just need headers or no headers
+both datasets are the same to use
+
+python will be required for simulation lessons
+we will need SimPy, PuLP in python to cover simulation libaries
+week 5 or week 6 is the simulation lessons
+
+homework 1 - R is enough
+R will be covered through the first 4 weeks
+
+switch to python in week 6 and 7 for simulation
+learn the data structures in python: lists, dictionaries, arrays, looping etc.
+
+can work with python if you are more comfortable
+
+homework format should be:
+  - document to describe the code and outputs
+  - the actual Code
+  - solutions do not have to match exactly
+  - make the solution easy for the reviewer to see the thought process and results
+  - should provide your own code
+  - users should not be there to debug code
+  - focus on the interpretation makes sense and is reasonable
+  - you need to explain your output!!!
+  - solutions in Rmarkdown are acceptable
+  - submit as pdf or word document if possible
+
+this is a analytics course
+answers can be variable there are no 'hard answers'
+the idea is to learn how to apply methods - not grade harshly on the homework
+trying to prepare a data analysis for your boss
+you need to explain your results?
+
+grades questions - contact instructors privately
+
+exams will be multiple choice and drag and drop
+no coding will be available in the exams
+allowed one sheet of paper for first quizzes
+allowed two sheets of paper for final exam
+no coding but will be asked about certain functions covered in class
+midterms are 1.5 hours
+final are 3 hours
+you will have 10 days to take the exam
+one sitting to take an finish the exam
+have time within 10 days to take the full exam in one sitting
+
+
+only one chance to submit homework
+will not be available to re-submit
+
+everything is available in the syllabus
+getting started section of the course within EdX
+
+definitions and glossary to study terms
+located in the EdX platform
+will be useful to study for the exam
+
+should not have to memorize formulas if we have a cheat sheet
+
+
+assignments will only be released one at a time
+once the due date passes the next assignment will be posted
+
+grading policy - need to review other students to get complete grade
+need to submit and complete peer reviews on time to get a grade
+3 peer reviews are needed to get a homework grade
+
+
+videos and homework will not be released early
+peers will be assigned to you automatically
+peer reviews will be anonymous
+
+programming recitation will be to help your homework in R
+
+
+what is difficulty from exam to homework?
+homework = coding and programming
+exam = multiple choice, drag + drop test the understanding of the lecture material
+making a through cheat sheet will be very important
+functions, definitions, will be needed on your cheat sheet
+without a good cheat sheet exam will be extremely helpful
+
+sample quiz will be available for the proctoring process and the type of questions asked
+sample will be for midterm #1
+
+
+overall will be coming soon this weekend!
+videos will be recorded for all programming videos and office hours

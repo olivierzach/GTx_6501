@@ -1,0 +1,36 @@
+Choosing a Classifier
+
+what are the trade-offs in building classification models?
+
+we want to put things into categories!
+
+should we give someone a loan?
+
+we draw a line to sort groups into classification groups...
+what is the right line to draw?
+
+which one should we chose - the line that it further from making mistakes!
+we might not have all the data - we want find the line that is not close to
+make misclassifications
+
+what if it is impossible to avoid making classification mistakes...
+i.e. no line to separate between points?
+
+we need a 'soft' classifier rather than a 'hard' classifier
+we need as good as separation as possible - minimize the number of
+misclassified points
+
+we want to trade off between actual mistakes and 'near' mistakes
+not all mistakes are equal!
+
+the best separator - the most costly one type of decision is the further we
+shift our line away from this group!
+
+we can set a high classifier in order to limit cost of classification errors
+we can use the same idea for 'soft' classification also!
+
+we can tell from our decision line which variable is important to the
+classifier based on the scatterplot between the two variables
+
+horizontal line = the classifier only takes the vertical access into account
+vertical line = the classifier only takes the horizontal axis into account

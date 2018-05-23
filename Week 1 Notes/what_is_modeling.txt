@@ -1,0 +1,10 @@
+What is Modeling?
+
+  - real life situation described in math
+  - analyze the math
+  - turn math analysis back to real-life solution
+
+the mathematical description of the problem is the model
+all the detail involved in modeling is 'the model'
+
+  

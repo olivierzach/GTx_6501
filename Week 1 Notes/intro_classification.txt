@@ -1,0 +1,25 @@
+Introduction to Classification
+
+classification = putting things into categories
+put into groups of 'yes' and 'no'
+
+many analytic questions need to bin answers into a group based on the past
+examples
+
+we can use classification models to sort these items into these groups
+
+we can also have multiple classification groups - not just 'yes' or 'no'
+
+we need data to get these answers!
+we can infer and model from the data to classify a new point into the correct
+group!
+
+credit score and income example: scatterplot
+if repaid - green
+if defaulted - red
+these points could have an entire set of features associated with it
+we can draw a decision line between the points and sort them based on our
+decision line
+
+there are many lines! how do we know the 'right' line
+they could all separate the groups evenly!

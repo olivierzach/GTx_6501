@@ -1,0 +1,33 @@
+Cross Validation
+
+previous: measure effectiveness of a model
+separate into training, validation and test
+
+what is there are a couple of important data points that only show up in
+certain sets?
+
+cross validation is how we avoid this
+
+k refers to how many folds we have in our data
+
+we can split our training up into four parts
+we can do training and validation multiple times using the training data
+we iterate through this process!
+train on 1,2,3 - test on 4
+train on 1,2,4 - test on 3
+train on 1,3,4 - test on 2
+train on 2,3,4 - test on 1
+take average on each of these K models!
+now all the data has been used for building and testing our model!
+
+this evaluation will estimate the model quality!
+
+once we used cross validation to choose a model...what exactly is the model we have chosen?
+each fold is a different model with different coefficient estimates!
+instead of averaging coefficients across the K models - we train the model against the entire dataset
+select model using cross validation and then train it again on all the dataset
+
+K Fold Cross Validation:
+  - better use of our data
+  - better estimate of our model quality
+  - choose model more effectively

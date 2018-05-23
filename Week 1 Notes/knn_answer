@@ -1,0 +1,17 @@
+Here is my shot at this - could be off base.
+
+When you manually run your KNN model with k = 5 and k = 50, are you developing your accuracy measures by predicting back onto the training set?
+
+This could be why you are getting better accuracy with lower K. The model 'knows' so well that if you used k = 1 - the model would find the exact point match (distance of 0) in the training set and give 100% accuracy for all observations.
+
+Adding more neighbors will actually dilute performance on the training set because it will include 4 other points (with k = 5) or 49 other points (k = 50) that are not the actual observation and give it's averaged prediction.
+
+Cross validation is used to provide a better estimate on a 'unseen' test set based on the training set.
+
+To really test if k = 5 is better than k = 50, we should apply each model to an independent test set and determine accuracy from there.
+
+Hope this helps
+
+
+
+Also - you can set your kmax argument to the number of observations in the training set (the largest K the dataset will support) and train.kknn will find the optimal K based on mean squared error. I am getting an optimal K at 58.

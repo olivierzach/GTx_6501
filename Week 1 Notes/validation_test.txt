@@ -1,0 +1,48 @@
+Test Sets - Validation
+
+validation - measuring effectiveness of the model
+
+don't judge a model based on how it fits the training data
+this will overfit the random effect of the training data and it will not generalize
+to new datasets
+
+our performance will look too good on the training data
+
+how do we then measure model effectiveness?
+we split data into two groups:
+  - a larger training set to fit our model
+  - a smaller set to measure the model's effectiveness
+
+in our loan application example:
+  - create the classifier on the training set
+  - measure effectiveness on the validation or test set
+  - we could get 90% right on the training set
+  - we could then get 80% right with the test set!
+
+this is a variance problem - our model is having a hard time generalizing to new data
+
+there is one more level - what if we are comparing more than one model?
+ we have both SVM and KNN and 5 of each?
+ which is the best of the 10 models?
+ for each one we can measure on the validation set and choose the best one!!
+
+even on the validation set - the randomness will still be there
+the performance may vary based on the randomness of the validation set
+model with the best performance may be most likely to be the best model...
+but it is also most likely to be given a boost by the random effect of the validation set
+
+the performance we measure on the validation set could be random!
+
+how do we account for this?
+
+we measure a third set of data on a test set! another held out data to measure the true effectiveness!
+this will make sure our model is not boosted up by randomness in the validation set!
+
+we can use the measure on the test set to accurately gauge performance!
+
+we use the training set to build our model:
+we use the validation set to choose between models:
+we use the test set to get the final performance of our chosen model:
+
+how do we split our data into these different sets?
+there are multiple ways to do this...

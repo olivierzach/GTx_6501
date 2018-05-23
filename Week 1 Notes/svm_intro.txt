@@ -1,0 +1,121 @@
+Support Vector Machines
+
+basic mathematical model for classification models
+we want to put things into categories
+should we give loans to people based on who they are?
+
+think of the scatterplot - green is repaid, red is default
+
+different lines can be better - be far away from mistakes and further away from
+more costly mistakes
+
+Support Vector Machines
+  n - data points
+  m = number of attributes
+  xij = ith attribute of the jth data point
+    x1j = credit score of person j (i is the attribute associated with the jth row)
+    x2j = income of person j
+  yj = the response for data point j
+    yj = is 1 if data point j is green (repaid)
+    yj = is 0 if data point j is red (default)
+
+a line through our classification space (scatterplot) would be defined as:
+this is a set of coefficients!
+
+a1*x1 + a2*x2 + ... + am*xm + a0 = 0
+  where a1 through am are the number of attributes or features!
+
+we can also write this as:
+  Σ(ai*xi + a0) = 0
+
+
+we can draw to parallel lines through our classification space such that:
+parallel lines have the same coefficients but different intercepts!
+
+we want to draw two parallel lines that separate our red and green points...
+such that a0 is the line exactly in the middle of the two groups (splitting the two groups)
+this will be our classifier - the line with intercept evenly splitting the two groups we want to classify
+
+we want to find values of a0, a1...am that classify the points correctly and have the maximum
+MARGIN BETWEEN THE TWO POINTS we need the maximum gap between the parallel lines
+
+we are drawing to parallel lines as close as possible to our group of points
+this means we have a line of a0,a1...am for the green
+and we have a line of a0, a1...am for the red
+we will use the midpoint of these two lines to be our classifier
+the support vector machine aims to find the lines with the largest distance from the
+classifier (midpoint) to the margin (individual lines separating green points)
+
+Distance between solid lines:
+  = 2 / √(Σ(ai)^2)
+  this is 2 divided by the square root of the sum of a coefficients squared
+  this converts to
+  Σ(ai)^2   (sum of coefficients squared for all coefficients)
+  if we can minimize this sum - we can maximize the margin between the two groups of data!
+  this is our objective function - we aim to build lines that minimize this distance and
+  maximize the margin!
+
+Hard separation problem: minimize the sum to maximize the margin
+minimize over all a's the sum of the squares of the a's
+subject to the sum has to be greater than equal to 1 for all data points
+we minimize the sum of squares for all a's but only if we can accurately classify the groups!
+our function is bounded by the original separation lines
+we want to find two separation lines that accurately classify all points and
+have the largest distance between the two lines!!
+
+
+what if there is no way to separate between the two groups?
+we need a 'soft' classifier!
+this means we account for errors in classification while trade-off the most
+costly errors
+
+we trade off errors vs. maximizing the margin
+
+the error for a data point j of our soft classifier will be:
+  max 0,1 (Σai*xij) + a0)*yj)
+
+if we are on the correct side of the line:
+  (Σ ai * xij + a0) * yj >= 1
+
+if we are on the wrong side of the line: this rewrites from the above step
+  (Σ ai * xij + a0) * yj - 1 < 0
+
+
+Total Error we want to minimize:
+  Σ max(0,1 - (Σ ai * xij + a0)yj)
+
+Margin Denominator: we want to maximize this
+  Σ(ai)^2
+
+we want to develop a trade off between our total error of classifying points
+and maximize the margin denominator - the distance between the decision lines
+
+to do this we can set a tuning parameter lambda and add it to our equation
+this turns our problem into minimizing this equation:
+
+minimize Σ max(0,1 - (Σ ai * xij + a0) * yj)) + λ * Σ (ai)^2
+
+the first piece is the total error and the second piece is the margin
+
+as λ gets large - the margin term in our equation gets large...
+this means the need for a large margin distance overtakes the need to be
+completely accurate!
+- this is the key tradeoff between total error and maximizing the margin!!!
+
+as λ drops towards 0 - the margin term goes to 0...
+this means the need for accuracy or minimizing total errors overtakes the need
+for a large margin decision boundary!
+
+THIS SUPPORT VECTOR MACHINES!!
+it is the trade-off between total error and maximizing the the margin distance!
+
+THIS IS THE SUPPORT VECTOR MACHINE EQUATION!!
+
+minimize Σ max(0,1 - (Σ ai * xij + a0) * yj)) + λ * Σ (ai)^2
+
+notice the two pieces to this equation!
+
+  - total error = Σ max(0,1 - (Σ ai * xij + a0) * yj))
+  - largest margin = λ * Σ (ai)^2
+
+our tuning parameter λ denotes how important once piece is in minimizing the entire equation!

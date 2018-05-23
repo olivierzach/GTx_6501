@@ -1,0 +1,24 @@
+SVM: what does the name mean?
+
+if we have a set of points and connect the dots - we get the convex hull
+this looks like a shape floating in space that could fall down
+a line that 'holds up' this convex hull is called a support vector
+
+support vector can be supporting from any side or the top
+we can have multiple lines supporting our geo shape
+
+in classification we want two lines that maximize the margin between the
+two groups - two parallel lines that are as far apart as possible
+these two lines are support vectors!
+
+the support vector machine is a machine that automatically determines the
+best 'support vectors' (parallel lines) that support our classification space!
+
+these lines correctly classify the data points while maximizing the distance
+between the two parallel lines!
+
+the machine does this automatically and is why we give it the name:
+Support Vector Machine
+
+the classifier we are looking for is between the two vectors - the classifier
+is not one of the lines touching the support vectors!!

@@ -1,0 +1,58 @@
+K Nearest Neighbor Classification
+
+simple model for solving classification problems
+this can deal with multiple classes
+this is called the K Nearest Neighbor Model
+
+suppose we have our bank example:
+loans to applicants based on credit score and HHI
+each previous applicant is green or red
+green for full payment
+red for default
+
+instead of trying to draw a line or decision boundary between
+the two classes...
+
+we can predict the next class based on how close the new data point
+is to other neighbors in the data
+
+based on the results of the 'nearest neighbor' - we slot in a new observation
+into a specific class
+
+we typically select 5 nearest data points but there is nothing magical about how many we pick
+we get the K in K nearest neighbors
+
+look at the K nearest points and pick the class that appears the most
+
+k closest points - more than one way to measure distance
+distance metrics:
+√Σ(|xi - yi)^2 is the straight line distance
+
+we can also weight different neighbors by importance
+√Σ( wi * |xi - yi)^2
+
+- different attributes might be more important that others
+- we weight the distance heavier to account more for that feature in that distance calculation
+
+likewise - unimportant attributes can be removed - our weight is zero for these attributes
+wi = 0 for unimportant attributes
+wi = large for important attributes
+
+how do we choose a good value of K?
+we try different values and see what works - this is called validation
+
+Classification Summary:
+what it is - divide data points into groups
+graphical intuition
+basic solution models:
+  support vector machine (SVM)
+  K Nearest Neighbors (KNN)
+both of these are machine learning algorithms
+
+additional subjects:
+  data types
+  data definitions
+  distance metrics
+  confusion matrices
+
+these are cross cutting that can be applied to all types of models

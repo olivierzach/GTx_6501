@@ -1,0 +1,37 @@
+Splitting Data
+
+training set to build a model
+validation to compare models
+test set to estimate performance of chosen model
+
+we need a way to split our data into these datasets
+
+we need a training, validation and test
+
+one model: only training and test, 70% training, 30% testing
+more data for training
+test still wants to be representative of accuracy
+
+multiple models: training, validation, test
+70% - 15% - 15% - it is not clear
+but training should be large and others should be large enough
+
+two general approaches to splitting:
+
+- simple randomness: randomly sample our data to build sets
+
+- rotation: take turns selecting points putting data into each set
+
+rotation - each part of the data will be equally divided into each group
+randomness could give one set more early data or late data
+rotation may introduce bias - we could be adding in our own patterns that are not correct
+
+example: time series we would miss the full pattern
+
+we could do things in between - random rotation based on stratified samples
+
+cross validation - how we use the training set to estimate performance on the test set
+we develop folds within the training set and fit models iteratively on each fold...
+we test performance on one of the left out folds using data from the other folds to build model
+we repeat this for all folds
+we then take the best performing model and apply it to the entire training dataset to get all the data possible

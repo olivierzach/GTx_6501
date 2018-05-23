@@ -1,0 +1,22 @@
+Data Definitions
+
+what data comes up in analytics?
+what terminology do we use in different types of data?
+
+important to understand the analytic vernacular
+
+Data Tables:
+  rows are data points
+  columns are variables - information about each data point - features, predictors
+  response - the outcome column or the data point we want to predict - this is a column
+
+Data Types:
+  Structured - described and stored in a structured way
+  Unstructured - cannot be stored easily - ex. written text
+
+Structured Data:
+  quantitative - numbers with meaning
+  categorical - numbers without meaning - categories of data - numbers denote groupings
+  binary - takes on 1 or 0, takes on two values only!
+  unrelated data - no relationships between data points
+  related data - data linked together - time series data - recorded at the same intervals

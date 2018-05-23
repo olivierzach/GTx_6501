@@ -1,0 +1,39 @@
+Model Validation
+
+what is validation? how good are our models?
+is it accurate? does it predict? does it classify?
+
+example: we could look at the data points used to build the classifier
+to check accuracy
+
+using the training data we could see our classifier only misses three out of
+24 points - this is 87% accuracy!
+
+do we have a good model? no!
+
+we cannot build a model on the training set and then measure it based on the accuracy on the training data!
+we cannot measure accuracy on the data we used to train the model!!
+
+why?
+
+data has two types of patterns:
+real effect: real relationships between attributes and response
+random effect: random effect or noise - it can look real in our training data!
+
+we don't know which patterns are real or which are random
+in the training data we are modeling a mix between real and random
+when we apply it to new data we should only see the real effects
+the random noise associated with that training data will not be present in the new data!
+
+real: same in all datasets
+random: different in all datasets
+
+our solutions performance will be less than the training data performance
+we want to model the true effect!!
+the random effect is why we cannot measure accuracy on the training set!!
+we will not generalize to new data!
+
+with small samples we can see lots of noise that is not the true effect
+we can always find patterns that are noise
+
+only the real effect are likely to show up in real data!

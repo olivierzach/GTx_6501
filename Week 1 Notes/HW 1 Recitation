@@ -1,0 +1,118 @@
+## Homework 1 and TA video
+May 14th 2018
+
+ - general course topics
+ - tips for the homework
+
+ Discussion points:
+ 1. familiar with coding and learn quickly
+ 2. use R for this course - there will be Arena / Python
+ 3. Best to use Rstudio
+ 4. not expected to be coding guru, google, blogs, online tutorials - learn to program!
+ 5. HW grading and etiquette
+        - peer graded
+        - submit your homework then grade three peers
+        - need to grade in order to grade peers yourself
+        - homework solutions will be provided to base solutions on
+        - tiered grading: 50-75-90-100 (over and above)
+        - median of the grades assigned to you
+        - grade how you want to be graded
+        - leave comments for how you grade
+        - the solutions are not the only way to complete the homework
+        - each homework is slightly more than 1% of final grade
+        - exams are 25% each
+ 6. Relevant Books: no formal books but these are helpful
+        - ISLR = not too basic but not too advanced (not needed)
+        - ESL = advanced and theory not needed for this course
+7. why wouldn't we always just normalize / standardize data over scaling?
+8. SVM could be used for multiple classes, not just KNN
+9. after k-fold cross validation is performed, we have an evaluation metric
+of how good a model is
+
+
+Code Reviews: Homework due Tuesday 5/22
+homework normally gives 7 days
+homework submissions - code commentary, and the actual scripts
+comment on process, results, and the actual code
+
+Question 1: simple question about your own life
+
+Question 2:
+text file of the credit card dataset
+classify someone by credit score using this dataset
+10 predictors and 1 response
+11th column is the binary response variable
+take information about people an determine if they will pay or default
+use two models: SVMs, KNN
+our response variable is column 11 V11!
+
+ksvm(V11 ~ .,
+data = credit_data,
+type = 'C-svc',
+kernal = 'vanilladot' # linear classifier,
+C = 100, # cost function to weight maximizing the margin
+scaled = T
+    )
+
+C = weight errors vs. how big we need classifier to be
+this is lambda in the lecture
+we fine-tune this parameter to get a good classifier on our data
+
+check the documentation
+check out the summary of the model - ksvm runs an optimization it is trying to solve!
+training error - measure of our model fit!
+
+attributes function - outputs everything within the model
+this is better than selecting out the different items inside the model
+
+what is the linear classifier?
+this is the coefficients of the linear classifier!!
+we will get 10 values that serve as the coefficient values!
+
+we can calculate accuracy by using the predict function
+put the model and the data you want to predict on
+sum(pred == credit_data$V11)/nrow(credit_data)
+
+predict function will be extremely valuable later in the class
+
+Question 2:
+repeat the steps with KNN
+function for KNN is a little different than the ksvm
+call the library kknn to use this function
+training - all data without response
+testing - only the response data
+
+tweak the number of K to find the optimal model
+remember to scale your data
+rep = repetition function
+why do we need to loop through the values?
+round up predictions to get 1, 0 binary predictions to compare to a response
+
+
+
+Question 3:
+cross validation to pick best C and best K
+without cross validation we have picked biased versions of C and K for SVM and KNN
+also we can compare different models against each other
+once we pick a model we think is best - we can apply it to the final test set to determine true accuracy
+
+cross validation is extremely important!
+pick a number of folds - we are not optimizing the folds - we are optimizing K!!
+
+report the optimal K value based on cross validation
+splitting data is a rule of thumb not a hard rule
+we want to output a training, a test and a final validation set
+training = build models
+test = determine which model is best
+validation = determine the final accuracy of our model!
+
+try different K and C values and make a conclusion on what is best!
+
+how do we submit our homework?
+try out Rmarkdown
+write everything in a word document - main document of discussion and results
+a separate document with the code separate
+
+
+get into the caret package!
+you can do cross validation with almost any model in caret!
