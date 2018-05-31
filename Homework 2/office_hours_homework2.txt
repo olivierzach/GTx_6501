@@ -1,0 +1,67 @@
+# homework #2
+
+due 5/31 at Thursday 2am
+peer assessments are due for real now
+homework assignments get to drop two of the lowest homeworks
+
+homework #2:
+k means clustering
+outliers clustering
+change detection
+
+question 1: K Means clustering
+ - we know the clusters beforehand
+ - in real life we wouldn't be able to check the correct answers
+ - what could be a good combination of predictors to cluster on?
+ - examine correlation with correlations plots
+ - need to scale the data beforehand (scale for modeling)
+ - scale matters in predictions not in correlation
+ - explain the clusters and what they mean - examine the cluster centers
+ - should we include high correlation or low correlation measures?
+ - plot each measure against each other to look at natural clusters
+ - correlation = greater than .7
+ - R^2 naturally increases based on predictors included...this will not generalize well
+ - R^2 adjusted - increases of R^2 regularized by the number of predictors included
+ - non-correlated hurting you? not hurting you? include higher correlation explain why getting clusters?
+ - scale the data beforehand with function scale
+ - scaling is important: prediction can go south if predictors are in different magnitude
+ - higher scaled predictors will have more weight than other factors - equal consideration for all predictors
+ - we want values to be important not because of their magnitude but their actual attribution to the model
+ - judge on total within sum of squared distance (totalwithinss) = tot.withinss
+ - judge on Total sum of squared distance as well (totss)
+ - try different nstarts (i.e. n = 20); random starts in the algorithm given the number of clusters we are using
+ - try different k for 1 through 15
+ - plot the elbow plot on total totalwithinss to recommend best K value
+ - want to see greater diminishing returns in terms of total within sum of squared distance
+ - highly correlated variables seem to be better to cluster on - including highly correlated values seems to make performance better!
+ - use table to see the results of the predicted cluster values against the actual cluster values
+ - or predict the training data based on distance between the cluster centers - assign and check actual accuracy
+ - use table to show the differences between the true clusters and our model clusters
+
+ question 2: outliers
+ - look at density plot
+ - look at boxplot - possible potential outliers?
+ - type = 11 = opposite tails outliers
+ - check scale of the data crime[1:20,]?
+ - try top and bottom tail outliers
+ - typical level is .05
+ - two tailed may mask the effect of one outlier on one tail!
+ - include all the data in the crime data - double check if we are just using the last column or not...
+
+ question 3: cusum change detection
+ - use the library qcc
+ - need a center value - mean - with no change this is just for summer only!
+ - need a sd for the entire column - sd with summer only!
+ - check to make sure that we are in the same format to answer the questions
+ - # of shifts = threshold value for what determines a change
+ - threshold value - sd * our se.shift parameter
+ - note this is the cumulative change is more than two se.shifts out!
+ - this helps us determine if the change is just random noise or an actual change for good!
+ - key here is the mean in the summer not the overall mean of all years all months!
+ - 6.2.1 = each year ; Day Temp, St (cumulative sum) ; cusum for each year! when does the change actually occur?
+ - 6.2.2 = Day of change, Temp, St (cumulative sum);
+ - for each year when summer ends and the Temp = are we shifting later or earlier
+ - for all years: are we getting hotter or colder as summer changes to fall
+ - the idea is to use mean summer temperature when we want no change!
+ - use the day of the change occurred and the temperature to determine if summer if happening earlier or if end of summer is getting warmer!
+ - possible to do cusum for day and year? check it out...
