@@ -1,0 +1,53 @@
+# K Means Clustering
+
+clustering - splitting a dataset into groups of points based on similarity or Distance
+
+k means clustering is a machine learning algorithm that solves a clustering problem
+
+say we have a dataset that we want to divide into clusters
+SUV example: age and temperature
+
+we have xij = attribute j of data point i
+
+yik = cluster membership = 1 if in cluster, 0 if not in cluster
+
+zjk = coordinate of cluster center k
+
+our objective:
+- minimize the distance of all data points in a cluster to their respective centroid
+- this can be written as:
+minimize(y,z) = sumofi sumofk sqrt[sumofj[xij - zjk]^2]
+- the second part of this equation is the distance
+- we minimize this function to sumofk yik = 1 for each 1
+
+- this is a long way of saying minimize the distance between each distance from
+data point to centroid for each datapoint in the overall cluster
+
+- we add up all the distances from each point in the cluster and aim to minimize these distances
+- we also force each data point to be included in exactly one cluster
+
+this is actually a hard optimization problem to solve!
+
+K Means:
+decide how many clusters
+K = the number of clusters
+in the data we set up 3 arbitrary cluster centers
+then we assign each data point to the cluster it is closest to
+we then re-calculate using the data points assigned to our arbitrary cluster
+once we re-calculate - we may have to re-assign the data points against to different clusters
+we continue this process until we have minimized the distance between all points in the cluster relative to the cluster center
+iterate until no data point changes clusters and we have our final clusters!
+
+k means can generalize to a many dimensions
+
+k means is a machine learning algorithm but it is also a heuristic algorithm!
+- heuristic = fast, but not guaranteed to find the absolute best solution
+- in many cases it does get close to the best solution and does it fast
+- it is also a Expectation Maximization Algorithm (EM)
+   - we alter the expectation step and then the maximization step over and over
+
+Expectation - Maximization Algorithm (EM)
+we calculate cluster centers - mean of the cluster - finding the expectation
+when we re-assign data points to new clusters this is the maximization step
+- we are minimizing finding the smallest distance to a cluster center
+our algorithm takes turns shifting from the expectation and maximization steps over and over

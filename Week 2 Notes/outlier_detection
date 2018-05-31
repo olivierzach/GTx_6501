@@ -1,0 +1,43 @@
+# Outlier Detection
+
+this lesson is about outliers:
+
+data points that are very different from the rest of the data
+how to find them and how to account for them
+
+outlier: data point with the value very different from the rest of the data
+- ex. a point outlier
+
+outliers encompass a philosophical debate
+
+contextual outlier - outlier the depends on the context of the other data
+outlier by omission - missing data that the other data shows is missing - collective outlier
+ - data that shows the entire set may be an outlier
+
+it is easy to look at pictures and find outliers -
+how do we do this automated?
+what do we do when we know we have them?
+
+to find point outliers in one dimension - we could use a box and whisker plot
+the top and bottom of the box are the 25th and 75th percentiles of the distribution of the values
+horizontal line is the median value - 50th percentile
+whiskers stretch to a reasonable range of values
+we plot points outside the reasonable range as possible outliers
+
+what we could do for multiple dimensions:
+ - fit a model
+ - then examine points with the most amount of error
+ - these high error points could be outliers!
+
+
+summary:
+- point outliers
+- contextual outliers
+- collective outliers
+
+what do we do?
+
+outlier detection:
+- automated methods
+- box and whisker or other visualizations
+- modeling error or residuals

@@ -1,0 +1,29 @@
+# Introduction to Clustering
+Week 2 - Lesson 1 - notes
+
+what is it?
+what does it answer?
+how do we find good clusters?
+
+take a set of data points and divide them into similar groups
+we want points in the cluster close to each other
+
+targeted marketing - segment customers and send different messages
+
+SUV - highlight size, vs size, price, look cool etc.
+each set of people will be a cluster we can market to
+
+clustering helps discover clusters too
+
+personalized medicine - who reacts to personalized treatment
+locating civil facilities - where to put your store?
+image analysis
+initial data investigation and exploratory data analysis
+
+two dimensional SUV graph:
+age and # of children in a household
+
+the catch is we can create as many clusters as possible...
+how do we create a good cluster?
+
+machine learning helps us determine the optimal cluster!

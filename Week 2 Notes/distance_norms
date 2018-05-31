@@ -1,0 +1,61 @@
+# Clustering - Distance Metrics
+
+Distance Norms
+straight line euclidean distance method
+distance between points is:
+
+distance = sqrt[(x1 - y1)^2 + (x2 - y2)^2]
+- this is the euclidean straight line distance
+
+distance = abs[(x1 - y1)] + abs[(x2 - y2)]
+- this is the rectilinear distance
+- notice the absoluate value
+- also known as Manhattan distance - grid distance for cities
+
+both of these can be generalized:
+
+distance = sqrt^p[abs[x1 - y1]^p + abs[x2 - y2]^p]
+- p = 1 for rectilinear distance
+- p = 2 for euclidean distance
+
+we can further generalize this to n dimensions:
+
+distance = sqrt^p[sumofndimensions(abs[xi - yi]^p]
+- sum over all n dimensions
+- this is known as the p-norm distance
+- where p is the parameter for type of distance
+- this is also called the Minkowski distance
+
+p is a parameter - we can tune this parameter to be any p would want
+the third most common value is infinity:
+the infinity norm distance
+this is the distance as p approaches infinity
+
+How does the infinity norm work?
+
+substitute p for infinity in our distance calculation
+distance = sqrt^inf[sumofndimensions(abs[xi - yi]^inf]
+
+our distance is translated into the largest of our values...
+therefore = sqrtinf[maxi * abs[xi - yi]^inf]
+the largest i raised to infinity will dominate all other values in the sum!
+sum equals the largest abs[xi - yi] to the infinity distance
+
+the infinity norm is very simple - it simplifies to the largest absolute set of numbers!
+
+= 'the biggest'
+
+questions:
+
+when do we use infinity norms? or norms in general?
+
+example: warehouse optimization
+machine moves to right place and the up and down time
+the time is the exact distance to move to the right aisle and then move up to the correct location
+this is the 2-norm time problem: the time is aisle distance + height distance!
+
+
+say we want the machine to move down the aisle and start moving to the right height at the same time??
+this is a smarter algorithm - and utilizes a different distance calculation to optimize
+the time it takes is the larger of the two times: either isle distance or height distance
+what ever is higher is the time the machine takes! this is the infinity distance

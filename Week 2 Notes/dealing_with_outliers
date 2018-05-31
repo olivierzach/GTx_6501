@@ -1,0 +1,46 @@
+# Dealing with Outliers
+
+what are outliers? how do we find them?
+
+what do we do with outliers?
+
+this depends on how the data becomes outliers
+
+outliers can be:
+- bad data: sensor fails, contaminated experiment, wrong input
+- real data the is a part of the true data
+
+we need to look into where the data came from
+need to look for how it was compiled
+unique situations surrounding the data preparation, modeling steps
+
+we will have to look deeper to try to explain why and outlier is and outlier
+this will guide how we handle outliers in our processes
+
+understanding outliers and dealing with them correctly will ensure the model is validate and analysis is valuable
+
+if just bad data: we might omit the outliers
+or we can impute the the missing or bad values
+
+if correct data: we have to think about the system
+if enough true randomness we should have some "real" outliers
+if normal distributed - 4% of the data will be more than 2 standard deviations away from mean - outliers
+this scales with data - more data points means more observations will look like outliers
+do we consider these outliers as apart of this model?
+if the magnitude of the model's error is part of the measure of its value - maybe we should keep our outliers
+
+ex. weather events can be 'real' outliers that really occur in the data
+if we throw these out we will not be modeling truth
+
+we can build models to estimate the probability of these outliers happening i.e. logistic regression model
+then build another model to estimate the values with the outliers removed
+
+some outliers are not predictable and might need to be removed even if it is a systematic outlier
+
+summary:
+ - outliers aren't predictable sometimes
+ - investigate the data just in case you are wrong
+ - outliers can be real and apart of the system of data - valid outliers to model
+ - outliers can be bad data and can be removed
+ - even true outliers can be removed if the situation calls for it
+- investigate your data 

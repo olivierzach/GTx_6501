@@ -1,0 +1,62 @@
+# Change Detection Details
+
+detecting change can be very valuable
+- manufacturer performance
+- change of sales based on promotion
+- railroad example where we need a flexible approach to detect change quickly
+
+this lesson focuses on the CUSUM:
+- cumulative sum
+- has the mean of the observed distribution gone beyond a critical level
+- can help us detect increase versus mean, decrease versus mean or both
+
+suppose we have some data:
+x sub t is the observed value at time t
+x^t might be the price of a stock, temperature of railcar at time t
+mu is the expect value of x if no change
+for each observation xt - mu is how far the observation is away from the typical observation at time t
+
+CUSUM metric:
+St = max{0, St-1 + (xt - mu - C)}
+- determine is St >= T?
+- basic idea is to calculate a metric St and declare when we observed a change when the metric goes over threshold T
+- at each time period we observe xt and see how far it is from the expectation
+- then we add that amount to the previous periods metric St-1, - this is the running total St
+- if the running total is greater than 0 we keep it
+- if less than zero we reset the running total to 0
+- this helps us quickly determine if there is change
+- if below zero (in the above case) we ignore it - it doesn't matter we are detecting if greater than a threshold
+- we do not want to be too sensitive and say there is a change too early
+- we expect some randomness
+- we include a regularization parameter C to pull the running total down
+- the bigger C is the harder it is for St to get larger - the less sensitive the method will be
+- the smaller C is the easier it is to say a change has been detected - this is more sensitive St can get large fast
+
+CUSUM is a simple mathematical method to implement quickly
+how do we choose the right values of C and T?
+- we want quick detection but not overly sensitive
+- C and T are model parameters that we have to use data to find the right values
+- this decision depends on cost - how long it takes to detect change vs. cost of false positives
+
+part of the right setting of C and T involves trading off these costs
+
+let's examine this trade-off:
+we look at setting C and T correctly
+
+artificial bake the example to have a change to see how long CUSUM determines there is a change
+depending on C and T it will take longer to see the actual change
+trade off between detection time and false positives!
+
+we can also use CUSUM to detect decreases: look for negatives and decreases under threshold
+we can also use CUSUM to detect both: set thresholds for both and detect mean changes over and under expected
+
+there is also a good way to visualize:
+- 'control chart'
+- we plot St over time and if it ever gets beyond the threshold line it shows CUSUM has detected a change
+
+there are other methods of change detection but CUSUM is simple
+important takeaway: basic idea of tradeoff between early and false detection
+- changes can be detected by observing the difference in time value away from the mean
+- CUSUM is a method to detect change - we calculate a running total of differences from expected value and compare it against a threshold
+
+ 

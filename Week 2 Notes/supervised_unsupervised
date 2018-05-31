@@ -1,0 +1,20 @@
+# Supervised vs Unsupervised Learning
+
+classification - separate data into groups
+clustering - also separate data into groups
+
+what is the difference?
+
+what we know about that data beforehand
+
+classification we know the attributes and the 'answer' - which observations fall into which groups
+
+clusterings we do not know the 'answer' rather just want to explore what clusters of groups are available in our dataset
+
+this is the idea behind supervised and unsupervised learning:
+- classification = supervised we known the answer
+- clustering = unsupervised clustering is built with no 'end goal' in mind
+
+supervised learning: when we observed the right answer for each data point and the repsonse is known
+unsupervised learning: correct answer or response is not directly known
+- both use the attributes to determine the method's outputs

@@ -1,0 +1,40 @@
+# Practical K Means Details
+
+clustering - grouping data points
+k means heuristic machine learning algorithm
+
+what should we do with an outlier?
+it might not really be apart of our clusters
+it can have high influence over the making of the clusters
+we should learn about these outliers and what they mean!
+
+the algorithm can just be a guide!
+the best professionals practice the art of analytics
+
+
+k means is a heuristic machine learning algorithm:
+- it is a good model, but not guaranteed to find the best solution
+- it runs fast
+- if we run it several times we will get different initial starting clusters each time!
+- we can then choose the best solution
+- we compare each of the final clustering to dial-in to the best cluster solution
+- we can also tune for the number of optimal clusters to use
+
+won't more clusters always be the better solution? No it won't
+we want clusters that can be explanatory and don't want too many to reduce interpretation
+if we use a lot of clusters we will have one cluster for every data point
+this doesn't tell us anything useful about our data
+we want the number of clusters that minimize the distance a significant amount based on the number of clusters added
+this means we want the minimal amount of clusters than minimize the cluster distance the most
+this it typically the k vs. distance graph - we want to recommend clusters on the 'elbow' of the graph
+
+tune the solution by qualitative and quantitative values
+qual: 5 new fire stations? not initialize city cluster for 8 clusters
+quant: take a look at the total distances comparison vs. the total number of clusters
+
+the marginal benefit may be minimal for adding a new cluster
+remember the 'elbow' chart to determine optimal k value
+this is a good start at finding clusters to use - consider your problem!
+
+k means clustering is an unsupervised learning technique!
+we do not have the official answers - we are asking the machine to find 'best' clusters based on distance for us!

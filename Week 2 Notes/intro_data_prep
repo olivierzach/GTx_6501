@@ -1,0 +1,29 @@
+# Intro to Data Preparation
+
+this lesson:
+
+Data Preparation:
+ - using specific data in our analysis: predictors, factors etc.
+ - examples:
+      credit scores
+      average temperature
+      number of hot dogs sold
+      price of stocks
+      amount of a chemical in drinking water
+
+we can have numeric and qualitative data that we need to prepare them
+
+we sometimes need to scale our data to use it in algorithms
+
+scales can magnify results that are not true
+
+scale of data: be aware of possible outliers
+extraneous information:
+  - complicates the model bogging it down to bad performance or interpretability
+
+we need to address these before building our models!
+
+summary:
+- examples of quantitative data
+- potential problems within the data
+- will learn how to prepare the data for our particular model

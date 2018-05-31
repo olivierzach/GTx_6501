@@ -1,0 +1,13 @@
+# Clustering for Prediction
+
+clustering - splitting data points into groups based on similarity
+
+k means can also be used for prediction
+
+we take in new data points a fit it into the closest cluster based on similarity
+we try to match it to the closet to the cluster center
+
+what range of possible data points can we assign to each cluster?
+we can map the entire space to see which data points fall into any cluster
+think of the predicting Voronoi diagram
+all space is mapped by distance to our closest data points
