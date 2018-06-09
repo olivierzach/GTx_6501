@@ -1,0 +1,34 @@
+# Week 4 Notes Advanced Regression
+
+advanced methods related to regression - brief descriptions of each method
+some are parametric and some are not
+parametric - no form of the underlying predictor data
+
+Poisson Regression:
+- regression when response follows a Poisson distribution
+- poisson = f(z) = lambda^Z * e^-lambda / z!
+- this models count data
+- example: count arrivals at an airport security line
+- estimate lambda(x)
+
+Spline Regression:
+- spline is a function made up of polynomials that connect to each other
+- polynomials connection at a knot
+- fit different functions to different parts of our data sets
+- we want to find smooth connections between the parts - this ensures we do not have drastically different answers for close values
+- order k regression spline means the polynomials are all k order polynomials
+- multi-adpative regression splines = MARS or EARTH models
+
+Bayesian Regression:
+- start with data
+- but we also start with some estimate of how regression coefficients and the random error is distributed
+- bayes regression is often most helpful when we don't have much data to start with
+- bayes theorem can give us an updated estimate based on these prior distribution assumptions
+- we essentially combine expert opinion with data to temper each to give accurate models
+- if we do not have expert opinion we can choose a very broad prior distribution and use it a seed data that can be adjusted by the data we do have
+
+K Nearest Neighbors Regression:
+- KNN version of regression instead of classification
+- plot all the data we have - find the k nearest points of new point - then take the average of the neighbors to give regression estimate
+- we can do more things: weighting each dimension of distance, remove dimensions that are not predictive
+- quick and easy method to implement
