@@ -1,0 +1,104 @@
+# Week 3 Maximum Likelihood and Information Criteria
+
+previously we learned how statistical models can fit a dataset
+this lesson will cover how to measure the quality of a model's fit
+
+how do we measure the quality of a model?
+
+the basic measure of model quality is likelihood
+- we measure the probability (density) for any parameter set
+- find the maximum likelihood = parameters that give the highest probability
+- what ever parameters give the highest probability density are the parameters that give us the best model!
+
+example:
+Error ~ N(0, sigma^2) i.i.d (independent from one dataset to the next)
+given observations z1...zn
+and given model estimates y1...yn
+here is the probability for observing zi if the true value is yi
+1/sigmasqrt(2pi) e^(zi - yi)^2 / 2sigma^2
+- the joint probability is this equation for each n terms multiplied together!
+(1 / sigmasqrt(2pi))^n * e^(--1/2sigma^2 * sumof(zi - yi))^2
+- this is the probability of observing z1...zn if the true values are y1...yn
+- this is just the product of each of the n terms
+- we can simplify this into a single exponential term
+- because the exponential function gets larger...
+- we can find the largest value of this whole expression by finding the largest value of the exponent
+- MLE = the set of parameters that minimizes the sum of squared errors
+- we want to maximize the joint probability distribution by minimizing negative sum of squared errors
+
+therefore...
+
+if our errors are normally distributed
+if our errors are independent and identically distributed (i.i.d)
+then the set of parameters that minimizes the sum of the squared errors is the maximum likelihood fit!
+
+example: basic regression
+yi = a0 + sumof(aj*xij)
+sumof(zi - yi) ^2
+- we want to minimize sumof(zi - yi)^2 over our parameters a0, a1,...an
+goal is to minimize:
+  - sumof(zi - (a0 + sumof(aj*xij))^2)
+this is a pretty easy optimization problem
+we can also use likelihood to compare two different models using the likelihood ratio
+conduct a hypothesis test between two model's likelihood ratio
+
+
+Maximum Liklihood Fitting
+- simple example: regression with independent normally distributed errors
+- can get complex fast: different estimation formulas, different error assumptions
+- good statistical software can handle complexity more than simple linear regression
+
+there are other methods that combine maximum likelihood with model complexity
+example:
+
+Akaike Information Criterion (AIC)
+L* is the max likelihood value
+k is the number of parameters that we are estimating
+AIC = 2k - 2ln(L*)
+where 2k is the penalty terms that balances likelihood with simplicity
+this helps us avoid overfitting
+
+adding parameters can improve a model's fit it can lead to overfitting - fitting the random noise!
+we can substitute our Liklihood function into the AIC formula
+which every model has the smallest AIC is preferred
+smaller AIC means less parameters balanced with high likelihood
+AIC has nice properties if we can observe infinitely enough data points
+however this is impossible...
+instead we issue a correction term to the normal AIC called AICc to use for smaller datasets
+AICc = AIC + 2k(k + 1) / (n - k - 1)
+this equals in long form:
+AICc == 2k - 2 ln (L*) + 2k(k + 1) / n - k - 1
+- this is the corrected AIC or AIC sub c
+- when comparing different models with AIC we can calculate the probability that one model is better than the other
+- we do this using the relative likelihood
+= e^(AIC of model1 - AIC of model2) / 2
+with model1 AIC = 75 and model2 AIC = 80...
+e^(75-80)/2 = 8%
+model2 is 8% as likely as model 1 to be better (much more likely that first model is better)
+this means our first model is probably better
+
+
+Bayesian Information Criterion (BIC)
+BIC = k ln (n) - 2 ln(L*)
+L* is our maximum likelihood value
+k = number of parameters being estimated
+n = number of data points
+BIC's penalty term is greater than AIC's penalty term
+BIC encourages models with fewer parameters than AIC does (more penalty more regularization)
+only use BIC when there is more n than p
+
+comparing two models with BIC: rules of thumb
+comparison BIC > 10 = smaller BIC model is very likely better
+6 < comparison BIC < 10 = smaller BIC model is likely better
+2 < comparison BIC < 6 = smaller BIC model is somewhat likely better
+0 < comparison BIC < 2 = smaller BIC model is slightly likely to be better
+where comparison BIC = abs(BIC model1 - BIC model2)
+
+summary:
+
+no hard and fast rule for using AIC or BIC or maximum likelihood
+all three can give valuable information
+looking at all three can help you decide which is best!
+AIC = frequentist
+BIC = bayesian
+helps determine which model is the best to use!

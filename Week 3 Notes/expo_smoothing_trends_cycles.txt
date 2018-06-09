@@ -1,0 +1,65 @@
+# Week 3 Exponential Smoothing
+
+- modifying exponential smoothing to account for trends in time series data
+
+- time series data = data where the same response is known for many time periods
+
+for example:
+  St = alpha * xt + (1 - alpha)St-1
+  0 < alpha < 1
+  - St-1 is the estimated baseline
+  - xt is the actual value at time t
+  - alpha is between 0 and 1 and in an indicator of the randomness of our system
+  - the more randomness - trust our previous estimate of baseline St-1 (close to 0 alpha)
+  - the less randomness - trust our new value xt (close to 1 alpha)
+
+Time Series has complexity: trends, cycles, that modify the baseline
+- how do we include this in the exponential smoothing model?
+
+Trends:
+- Tt = the trend at time period t
+- new smoothing equation w/ trends: St = alpha * xt + (1 - alpha)*(St-1 + Tt-1)
+- the trend Tt is incorporated into the exponential smoothing equation
+- we have a baseline term and a trend term
+- we can flip this out to find an equation for Tt = B(St - St-1) + (1 - B)Tt-1
+- notice that the trend equation is the same as the baseline equation!
+- in both we are taking the actuals + the previous observed and weighting each piece of the equation by a randomness parameter
+- St and Tt can both be estimated using the same equation!
+
+Cycles:
+- like trend - there is an additive component of our formula
+- alternative way to add cycles: seasonality in a multiplicative way
+ notation:
+    L: length of a cycle
+    Ct: the multiplicative seasonality factor for time t
+    - helps us inflate or deflate the observation based on cycle
+
+Here is the new baseline formula with Trends and Cycles (seasonality):
+- St = (alpha * xt / Ct-L) + (1-alpha)*(St-1 + Tt-1)
+- we use the cyclic factor to inflate or deflate our current actual part of the baseline estimate equation!
+- note that we use cyclic factor from L time periods ago...
+- this is the most recent cyclic factor we can from the same part of the cycle
+- example: if today is Monday, we use last Monday's cyclic factor
+- this is how we get a baseline estimate
+- trends are updated in the same way as before
+- cyclic factors are also updated in a similar way as before
+- updating the cyclical factor is the same - we flip around our formula to get a new formula for Ct
+- Ct = gamma(xt / St) + (1 - gamma)Ct-L
+- C1...CL = 1 then no initial cyclic effect
+- all equations have a current vs previous baseline components to the equations
+
+# starting conditions:
+- T1 = 0 that shows no initial trend
+- multiplicative seasonality:
+  - multiplying by 1 shows no initial cyclic effect
+  - the first L values of C set to 1 (first values of C are set to 1)
+
+# this is the modified Exponential Smoothing Model
+- sometimes called: single, double, triple exponential smoothing
+- triple exponential smoothing is also called Holt-Winters or Winter's Method
+- exponential smoothing with baseline, current observation, trend and cycles is the Holt-Winters baseline estimate
+
+# next lessons...
+- how do we find good values of alpha, beta, gamma in each respective equation?
+- how to use exponential smoothing for descriptive analytics, forecasting
+- where does the name exponential smoothing come from?

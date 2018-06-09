@@ -1,0 +1,43 @@
+# Week 3 Exponential Smoothing
+
+Exponential Smoothing:
+- analyze time series data - same response is known for many time periods
+
+where does exponential smoothing come from?
+
+smoothing:
+- remember our exponential smoothing equation
+- St = alpha * xt + (1 - alpha)* St-1
+- single exponential smoothing case to build up to trend and seasonality - they work the same way
+- assume alpha that is between 1 and 0
+- we see that alpha will compress peaks and valleys
+- St = .5*xt + .5*St-1
+= High xt: St not as high it is pulled down by (1-alpha)*St-1
+= Low xt: not as low; pulled up by (1-alpha)*St-1
+- this means all peaks and valleys are smoothed out!
+- the equation is weighted to compress the values of the current estimate to reduce random noise
+
+exponential:
+- remember the equation of single exponential smoothing: St = alpha * xt + (1-alpha)*St-1
+- remember St-1 is the previous baseline estimate at time t-1
+- we can unfold this equation and write is as the form of our original St
+- this means: St-1 can be written as: St-1 = alpha * xt-1 + (1- alpha) * St-2
+- St-1 = (alpha * xt-1) + (1- alpha) * St-2
+- this makes our entire equation: (alpha * xt) + (1-alpha)*[(alpha * xt-1) + (1- alpha) * St-2]
+- we do this by substituting our new formula for St-1 into the back of our original St formula
+- we can keep doing this - notice the St-2 equation can be rewritten again!
+- we can do this forever! our equation is of the exponential form
+- when we look at our equation for St - we can see each observation going back into the past each weighted by 1 - alpha to an increasing exponent!
+- this is where exponential comes from!
+- our values of the previous baseline actuals are weighted by alpha and an exponent from the time they occurred
+- this is the extended from of exponential smoothing
+- in the basic equation it looks like only xt is used...but this is not true!
+- past history is folded into the previous baseline estimate but it still contributes to the equation!
+- more recent observations are more important right? is this accounted for? yes!
+- newer observations are weighted more based on the exponential smoothing applied to the alpha weight for the previous period's baseline!
+
+# Summary
+Exponential Smoothing:
+- smooth's out jumps in observed data
+- exponential weighting of all past observations
+- more recent observations are more important to the current baseline estimate

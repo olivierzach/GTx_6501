@@ -1,0 +1,39 @@
+# Week 3 Notes Simple Linear Regression
+
+Basic Regression:
+what is regression?
+what can it answer?
+what does it look like?
+
+regression can answer:
+- how do systems work = inference around the model
+- prediction = what will happen in the future? regression gives us predictions
+- set of predictors we can use to estimate the response
+
+Simple Linear Regression (SLR):
+- linear regression with one predictor
+- look for a linear relationship between predictor and response
+- we can use regression to actually quantify the value of the relationship
+- y = the repsonse
+- x1 = predictor
+- regression equation: y = a0 + a1*x1 for the one variable model
+- regression equation generalized: y = a0 + a1x1 + ... + amxm or a0 + sumof(aj*xj)
+- we can measure a line's fit to our data by looking at the sum of squared errors (actual - predicted)^2
+- error = distance between true and the model's estimate
+- yi = cars sold for data point i 'true' value
+- yhati = model's predictions of cars sold
+- data point i prediction error == yi - yhati == yi - (a0 + a1 * xi1)
+- sum of all squared errors: sumof(yi - yhati)^2
+- sum of all squared errors: sumof(yi - (a0 + a1 * xi1)^2)
+
+- quality of the lines fit we can minimize the sum of squared errors defined by a0 and a1
+- as we shift our line our a0 and a1 will change
+- the values of a0 and a1 that minimize the sum of squared errors are the best
+
+Optimization math to find the sum of squared errors:
+- minimize the convex quadratic function - sum of squared errors is a convex function
+- set partial derivatives to zero - we take partial derivatives with respect to each constant
+- solve these two partial derivatives simultaneously  to find the minimum sum of squared errors - the best fit solution!
+
+this lesson - linear regression - what questions it answers and how it works
+future lessons - more details about regression

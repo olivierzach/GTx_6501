@@ -1,0 +1,47 @@
+# week 3 notes transformations and interactions
+
+we know what regression looks like graphically
+we know it can answer descriptive and predictive questions
+this lesson will show how to generalize our regression line to fit different datasets
+
+y = a0 + a1*x1 + ... + am * xm
+
+- generalized models
+- interpreting the output
+- what is important what is not
+
+linear relationship is good if data is linear!
+y = a0 + a1*x1 + ... + am * xm
+
+if data is not linear we can generalize our linear fit to different data
+we can can transform the data to fit our data better
+we can can functions to our regression model
+quadratic regression = y = a0 + a1*x1 + a2*x1^2
+flexible regression = y = a0 + a1*x1^1.5 + a2*x1^2*x3 + a3*sin(x2)
+
+we can also transform the response:
+log(y) = a0 + a1x1 + ... + amxm
+
+we can also transform both response and predictors:
+ln(y) = a1*x1^2*x2*x3 + a2*log(x3)
+
+box cox transformation: automatically transforms to the correct transformation based on that variables distribution
+key transformations can be automated
+
+Interaction: predictors can interact with each other and not be additively linear
+this is predictor or variable interaction
+father height, mother height, and product of father and mother height
+
+interaction term into our regression:
+y = a0 + a1*x1 + a2*x2 + a3*(x1*x2)
+- here we can treat x1*x2 as our new x3
+
+summary:
+- generalized modeling
+- transforming response or predictor variables
+- variable interaction
+- we can find the best fit coefficient estimate of any types of generalized or transformed regression models
+
+future:
+more complicated regression models
+using software to find best fit coefficients

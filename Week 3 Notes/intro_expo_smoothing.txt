@@ -1,0 +1,33 @@
+# Week 3 Intro to Exponential Smoothing
+
+analyzing time series data - same event for many different time periods
+time series has some variation - trends over time
+increasing / decreasing , cyclical variations, annual
+
+randomness: all things vary based on randomness
+everything has random variation
+
+exponential smoothing helps us ferret out the baseline through the noise in time series data
+  St: the expected baseline response at time period t; expected value based on t time
+  xt: the observed response at time t
+
+what is the value over time without variation?
+- is there a true increase in the baseline or just random noise
+
+Two Answers:
+- St = xt = the observed blood pressure is a real indicator of the baseline (changes were signal)
+- St = St-1 = today's baseline is the same as yesterday's baseline (changes were random noise)
+
+Solution: Exponential Smoothing combines both ideas above
+- St - alpha * xt + (1-alpha)*St-1
+- alpha is just a number between 0 and 1
+- if there is a lot of randomness in our system - we should interpret most changes are noise - alpha goes to 0
+- if there is not much randomness then alpha should be closer to 1 - changes today may mean the baseline has actually changed!
+
+# Next Lesson:
+how do we start this process?
+initial condition: S(1) = x(1)
+then we build up from there...
+
+this method does not deal with trends or cyclical variation...yet...
+but exponential smoothing models can be modified to account for these patterns

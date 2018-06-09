@@ -1,0 +1,37 @@
+# Week 3 Forecasting
+
+exponential smoothing - analyzing time series data
+- smooths out randomness
+- gives clearer picture of the baseline picture
+- can also give predictions in the future
+
+Prediction with Exponential Smoothing:
+
+we know the basic exponential smoothing equation:
+- St = alpha * xt + (1 - alpha)*St-1
+
+we want to look ahead to a time period t+1
+we do not know what t+1 is...it is unknown...our best guess would be xt+1 = St
+we just use the previous period's baseline estimate
+our guess for the next time period is defined by this formula:
+  - Ft+1 = alpha * St + (1-alpha)*St
+  - therefore, Ft+1 = St
+  - meaning our best forecast of Ft+1 is our previous baseline St
+  - we can continue this forever
+  - the further in the future we go the more error we expect
+  - this also extrapolates to the case of including a trend in our exponential smoothing model
+  = the best estimate of the trend is the most current trend estimate!
+  - Ft+1 = St + Tt (current period baseline + current period Trend)
+  - this also can help us generalize this equation using a multiplicative seasonality (cycles)
+  - remember the equation: St = (alpha*xt / Ct-L) + (1 - alpha)(St-1 + Tt-1)
+  - the best estimate of the next time periods seasonality factor is:
+          - Ct+1 = C(t+1) - L
+  - our forecast for time period t+1 is:
+          - Ft+1 = (St + Tt)*C(t+1) - L
+
+how do we train our model to tune values of alpha, beta, and gamma?
+we do this by optimization: min(Ft - xt)^2
+we measure the squared error and minimize it over the whole training set!
+whatever alpha, beta, and gamma value give the best fit - those are the values we tune to!
+
+Exponential Smoothing can smooth historical trends and perform short-run forecasting (prediction)

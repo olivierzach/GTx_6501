@@ -1,0 +1,23 @@
+# Week 3 Notes Using Regression
+
+regression can answer two types of questions
+- descriptive questions about how systems work
+- predictive questions about what will happen
+
+regression visually: y = a0 + a1*x1 + ... + am*xm
+looking for a line that minimizes the sum of squared distances!
+
+this lesson will focus on how to interpret regression coefficients:
+say we use data to generate a regression line
+y = a0 + a1*x1 + ... + am * xm
+a0, a1...am are coefficients that best fit the data
+- to answer questions on how systems work the key answers are the coefficients themselves
+- to answer prediction questions - the response for all inputted variables is the key answer!
+
+summary:
+two uses: describe and predict
+these are two of the main pillars of analytics:
+- descriptive analytics, predictive analytics
+- regression is not the best at providing the right course of action = prescriptive
+
+future: random forests, transformations, decision trees + branching

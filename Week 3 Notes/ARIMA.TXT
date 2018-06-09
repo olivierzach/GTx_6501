@@ -1,0 +1,74 @@
+# Week 3 ARIMA
+
+time series analysis - other methods
+
+
+ARIMA = Autoregressive Integrated Moving Average
+
+Three key parts of ARIMA:
+
+Differences:
+estimate St based on xt, xt-1, xt-2 etc.
+our equation shows we are trying to estimate a new time period based on all previous time periods
+this generally works well if data is stationary
+if the mean, variance and other measures are constant over time = stationary data
+not all data is stationary - especially with trends and seasonality
+often data is not stationary but the differences might be stationary
+example:
+  - first order difference D(1)t = (xt - xt-1) # difference of consecutive observations
+  - second order difference D(2)t = (xt - xt-1) - (xt-1 - xt-2) # difference of differences
+  - third order difference D(3)t = [(xt - xt-1) - (xt-1 - xt-2)] - [(xt-1 - xt-2) - (xt-2 - xt-3)] # differences of the differences of differences!
+any of these processes can be stationary
+  - dth order differences = continuing our model difference model on to all possible difference values - d times
+
+
+Auto Regression:
+predicting the current value based on previous time period's values
+regression = predicting a value based on other factors - simple idea of regression
+auto = instead of using other factors, we use earlier values of the same variable we want to predict
+Auto Regression typically only works with time series data
+when used in forecasting - the exponential smoothing equation is a type of Auto Regression
+exponential smoothing uses the same data from previous periods to make a new prediction
+we could also use just a few previous data points - i.e. certain p time periods
+order p -Autoregressive models St is a function of {xt, xt-1, xt-2, ... xt-(p-1)} # we only go back p time periods
+
+# in ARIMA we combine autoregression and differencing together!
+= autoregression on the differences
+= use p time periods of previous observations to predict d-th order differences!
+- instead of using autoregression on the actual observed data we use autoregression on the differences
+- we use p time periods to predict dth differences!!!
+
+Moving Average:
+in addition to using previous values to calculate new dth distances in ARIMA...
+ARIMA will also use previous errors as predictors = et = (xhatt - xt)
+this is the moving average component of ARIMA
+we use order q moving averages - going back q time periods - to obtain the errors {et-1, et-2,...,et-q} to use a predictors in our model
+this would be an ordered q moving average
+
+
+ARIMA Model is based on p, d, q:
+Formula:
+  - D(d)t = u sumof(p)(alphai * D(d)t-i) - sumof(q)(thetai*(xhatt-i - xt- i))
+  - we have dth order differences
+  - pth order autoregression
+  - qth order moving average
+stats software can help tune the p d and q to find the best parameters for the ARIMA model
+as with all models - there is an underlying optimization problem used to find the best tuned parameters!
+
+This lesson covered the general ARIMA model:
+- we can add seasonality to this model
+- there are specific values of p d and q that relate the ARIMA model to other populate models
+- ARIMA(0,0,0) = white noise model
+- ARIMA(0,1,0) = random walk
+- ARIMA(p, 0, 0) = ARIMA with only the Autoregressive component = AR model
+- ARIMA(0,0,q) - ARIMA with only the moving average component = MA model
+- ARIMA(0,1,1) - ARIMA with no autoregression component = the basic exponential smoothing model!
+
+ARIMA is flexible (based on p, d, q) and can generalize to simpler models
+ARIMA can be used for short term forecasting
+ARIMA works better on more stable data (needs about 40 data points to forecast well)
+
+# coming up next...
+ARIMA models - help estimate or forecast a value (the actual prediction)
+ARIMA models - can also help estimate or forecast variance!!
+how and why we would do this is coming up soon!

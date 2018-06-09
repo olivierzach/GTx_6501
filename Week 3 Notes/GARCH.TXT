@@ -1,0 +1,28 @@
+# Week 3 Notes: GARCH
+
+exponential smoothing and it's generalization ARIMA - forecasting for time series data
+
+time series data = data for which we have the same response over many time periods
+
+# Generalized Autoregressive Conditional Heteroskedasticity (GARCH method)
+- estimate or forecast of the variance of time series data
+- differs from exponential smoothing and ARIMA in that is estimates variance (e), not a response value
+- why would we want to focus on estimating variance?
+  - knowing the variance we can estimate the error in our normal response forecasts
+  - important in investments - portfolio optimization - expected return balanced by amount of volatility
+  - the variance is often used as a proxy for error or risk
+
+GARCH Model:
+- very similar to the ARIMA model in previous lessons
+- sigma^2t = weight + sumof(Bi*sigma^2t-i) + sumof(gamma * e^2t-i)
+- there are only two differences
+- we are dealing with variances and squared errors rather than observations and linear error returns
+- second - we only deal with the variances - we don't use the difference of variances like we use differences of observations in ARIMA
+- other than these terms the formula structure is very similar
+- GARCH p q does not need a d parameter it does not use differences
+
+Summary:
+- covered three methods for analyzing time series
+- exponential smoothing
+- ARIMA (generalized exponential smoothing)
+- GARCH (ARIMA like model to estimate variance of time series data)
