@@ -1,0 +1,31 @@
+# week 4 notes eigenvalues and eigenvectors
+
+basics of eigenvalues and eigenvectors applied to a square matrix
+then we will learn how these apply to PCA
+
+suppose we have a square matrix A:
+v is a vector such that: A*v = lambda * v
+then v = eigenvector of A
+lambda = eigenvalue of A
+- if we start with some vector v and use a linear transformation A on it
+- we end up with a vector that goes in the exact same direction
+- it may be longer or shorted, scaled by lambda but the direction is the same!
+
+
+every value of lambda for the determinant(A - lambda * I) = 0 os an eigenvalue of A
+- once we have one eigenvalue we can plug it in to the equation A*v = lambda*v to solve for the remaining eigenvectors
+- there is software that can do this for us
+
+how do we use this for PCA?
+remember from the PCA lesson:
+- we start with a scaled matrix X of data
+- xij = jth factor value for data point j after scaling
+- find eigenvectors v1...vn of (X^T * X)
+- find the principal components:
+- multiply X by the eigenvectors
+- Xv1, Xv2,...Xvn are the principal components
+- these are transformed set of orthogonal coordinate directions
+
+- pca uses the properties of eigenvectors and eigenvalues to get:
+- transformed set of coordinate directions
+- ensures the directions to all be orthogonal to each other 

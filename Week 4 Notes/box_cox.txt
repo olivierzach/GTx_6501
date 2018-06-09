@@ -1,0 +1,23 @@
+# Week 4 notes Box Cox Transformations
+
+it is helpful to transform data before fitting a model
+- box cox transformation is one such transformation
+- some models assume data is normally distributed
+- results have significant bias when this assumption does not hold
+- normal distribution = variance is normal throughout all ranges of data
+- heteroscedasticity = equal variance!!
+- if we build on heteroscedasticity we end up with bias
+
+to deal with this bias by using the box cox transformation:
+- this is a logarithmic transformation
+- it stretches out the smaller range to enlarge it variability
+- it also shrinks the larger range to reduce variability
+
+equation: t(y) = (y^lambda - 1) / lambda
+- find lambda such that t(y) becomes close to normally distributed
+- we need to check for heteroscedasticity before using it - try the normal Q-Q plot
+- normal Q-Q shows the residual distribution - or how the error is distributed on the range of possible values
+
+what do they have to do with boxes?
+- george box and david cox invented this technique
+- box cox is useful for transforming a response to eliminate heteroscedasticity

@@ -1,0 +1,37 @@
+# Week 4 Notes PCA
+
+PCA = principal component analysis
+- this is a type of feature extraction
+- useful for highly correlated and highly dimensional data
+
+how do we deal with a model with many predictors?
+- which ones are important?
+- example:
+- does the past performance of any stock indicate how well the market will perform?
+- we have +6000 securities
+- can add many more predictors to the model (wars, attacks, election results, natural disasters)
+- two difficulties: 6000+ predictors even without interactions!
+- we would need lots of data to model this system without overfitting!
+- can we reduce the number of features we need or the number of data needed?
+- some of the predictors might be highly correlated with each other!
+
+PCA addresses both problems at once!
+- PCA transformation the data by rotation - PCA is a linear combination of the entire feature space
+- it then ranks coordinates by importance after removing correlations within the data
+- concentration on the first n principal components reduces the effect of randomness
+- earlier principal components are likely to have higher signal-to-noise ratio
+- but be careful - pca reduces correlation to explain variance of the predictors without seeing the response!
+- need to scale before running pca - different magnitudes will alter the pca groupings which chases after explaining any variance (even variance given by scale)
+
+pca rotates our plots (think of two dimensional graph shifted on axis)
+we then represent our once correlated data in new x and y coordinates such that there no longer is correlation!
+we call our new dimensions D1 and D2
+PCA will recognize which dimension is wider (more variance) and assign that dimension as the first dimension!
+we can use just D1 to represent the two factors! it will explain more variance in our data!
+
+
+# summary:
+principal component analysis:
+- used for high dimensional and correlated data
+- PCA attempts to remove these correlations (rotation) and rank them by importance (variance explained)
+- next we will cover the actual math behind PCA 

@@ -1,0 +1,23 @@
+# Week 4 Notes De- Trending
+
+trends only really appear in time series data
+trend: increase or decrease of data over time
+we can adjust for certain trends to get to the real pattern in our data
+de-trending - trend can mess up factor based analysis
+trends can skew the response!
+we can de-trend the response and the predictors!
+- consider to do this on any factor based model!
+
+How do we de-trend?
+factor by factor
+example: one dimensional regression
+we can simply modify the response if we know the adjustment factor (i.e. gold example)
+if we know the inflation rate we can subtract that rate from the price then model the response adjusted for inflation
+- we might not know the data in the past
+- go factor by factor and fit a linear regression for each predictor
+- de trended price = the price - the models estimate of price by year!
+
+# summary:
+- de trending approach is simple
+- it works well to remove trend effects for time series data
+- helpful for factor based (predictors) analysis

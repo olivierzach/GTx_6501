@@ -1,0 +1,48 @@
+# week 4 notes using PCA
+
+we know the idea of PCA for doing feature extraction
+we start with a large number of factors and reduce it to a smaller dimension feature space
+we also know that PCA removes factor correlation
+
+- this lesson will discuss the math used in PCA
+
+X: matrix of our data:
+xij is the jth predictor of data point i
+- we scale such that 1 / m * sumof(xij) = uj = 0
+- scaled for mean of all xij is 0!
+
+- next we find all of the eigenvectors of X^T * X
+- 'X transpose X'
+where V: matrix of eigenvectors (sorted by eigenvalue)
+- V = [V1, V2, ...] where Vj is the jth eigenvector of X^T * X
+
+the principal components is the matrix X times the matrix V
+- X is the matrix of our original scaled data
+- V is the matrix of eigenvectors sorted by eigen value
+- first component is X*V1, second component is X*V2 etc.
+- v is a linear transformation of the data from x to the principal components
+- each new factor will be a linear combination of the original factors!!
+- each principal component is a linear combination of the original factors!!
+- kth new factor value for the ith data point = tik = sumof(xij * vjk)
+
+- PCA eliminates correlation between factors - we can use the whole set of new factors if this is our only goal
+- if we want to reduce the dimension of our feature space - we can select a set of n principal components (each are linear combinations of the original feature space)
+
+the example above is using a linear transformation in PCA
+- we can also use kernels to modify the linear PCA to a more flexible PCA fit!!
+- this is similar to SVM
+
+PCA Regression - what happens after we use PCA? can we interpret the model?
+- pca finds new L factors [tik] and regression fits coefficients b0, b1, ..., bL
+- y = b0 + sumof(bK * tik) = this is our prediction function
+- our t vectors are linear combinations of the original factors!
+- how do we get interpretation back into the units of the original factors?
+- simple: input the full linear combination formula into each of the tik predictor
+this generalized to: aj = sumof(bK * vjk)
+- we can easily find a coefficient for each of the original factors using this method!
+
+
+# summary:
+pca is used for high dimensional and correlated data
+pca attempts to resolve these correlations and rank the coordinates by importance (variance explained)
+pca can we transformed back into the original feature space (substitute the full linear combination formula back into the model factor)
