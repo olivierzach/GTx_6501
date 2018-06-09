@@ -1,0 +1,44 @@
+# week 4 notes logistic regression
+
+- we know various shorts of regression models, trees and variable selection
+- in all these models we assume the response is continuous in all previous examples
+- what if we are trying to estimate a probability?
+- linear regression will not work - it might predict data outside the range of possible values
+- in these cases we can bound the response by a binary 1 and 0
+
+- for these types of models we can use the logistic regression model
+- logistic regression is a generalized linear model
+- we generalize our normal model to fit into the binary response
+- to do this we simply exponentiate the normal linear regression model
+
+log(p / 1 - p) = a0 + a1*x1 + ... + aj*xj ==
+p = 1 / (1 + e^-(a0 + a1*x1 + ... + aj*xj))
+- if a0 + a1*x1 + ... + aj*xj = negative infinity then p = 0
+- if a0 + a1*x1 + ... + aj*xj = positive infinity then p = 1
+- our model predictions will be bounded by 1 and 0
+- logistic curve is the traditional S curve that logistic regression tries to model
+
+- most of the things we can do with simple linear regression we can do with logistic regression
+- transformations of the input data
+- consider interaction terms
+- variable selection methods
+- logistic regression trees and random logistic random forests!
+
+- differences between simple linear regression and logistic regression
+- takes longer to calculate
+- there is no closed form optimization solution
+- understanding the model quality is slightly different
+- linear regression = R^2 metric that measures the fraction of variance explained
+- logistic regression = no alternative based on mathematical properties - but there is a pseudo R^2 metric
+- the pseudo R^2 metric does not really measure the fraction of variance
+
+- logistic regression can be used for classification
+- model in the same way but use a threshold to determine if a predicted probability is a 1 or 0
+- a common way to look at this: Receiver Operating Characteristic (ROC) Curve
+- this curve plots the sensitivity and 1-the specificity of the model for each threshold
+- sensitivity = tp / (tp + fn)
+- specificity = tn / (tn + fp)
+- the area under this curve AUC = this is the probability the model gives a data point a higher value for a correct 'yes'
+- AUC = .5 = concordance index = random guessing
+- ROC AUC = gives and estimate of overall quality of the model
+- but it does not differentiate between the cost of false positives and false negatives

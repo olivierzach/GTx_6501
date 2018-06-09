@@ -1,0 +1,28 @@
+# Week 4 Notes Introduction to CART
+
+- we known how to build, fit, evaluate regression models
+- this lesson will discuss how to use trees to to divide a data set
+- CART = classification and regression trees
+- we can use tree based methods for classification and regression
+
+trees can be used for decision making - i.e. the decision tree
+
+Trees in Regression:
+- normally we just fit a single regression model using all of our training data
+- ex. impact of a marketing email on customer spending
+- build regression model on this relationship with many factors
+- what is some factors behave differently in different combinations of predictors?
+- we could split our model into multiple pieces and only fit regression models to fit the branches of data
+- some factors may be significant in one branch but not others
+- we can continue growing these linear regression 'branches' - individual models on unique factors based on tree splits
+- branch endings are referred to as leaves
+- we will run a separate regression to find each leaf's individual set of coefficients
+- this will help us descriptively we can use each leaf's specific coefficients to explain the system of that leaf!
+- and predictively - we can build more targeted models
+- pull new observations through the tree based on rules and then use the leaf regression that matches in incoming case
+- trees can also explain where we might be lacking in our model - which branches have bad performance metrics?
+
+how do we choose what branches to put into the tree?
+when do we stop branch or growing the tree?
+why is the method called a regression 'tree'?
+- tree comes from computer science - rotate pictures upside down to see the true tree

@@ -1,0 +1,39 @@
+# Week 4 Notes CART branching
+
+previously - tree based analysis in a regression context
+- we need to discuss:
+- specifying how to a tree branch is split
+- understanding the stopping condition to avoid overfitting
+
+how do we branch in tree based models?
+- which factors should be used in the branching decision?
+- how should we split the data?
+- in theory we can branch on any combination of factors!
+- instead we branch on one factor at a time
+
+- start with half the data and build a regression with that data
+- whenever there is a leaf we can branch from...
+- we can calculate the variance of the response among all data points in that leaf
+- we test splitting on each factor to determine how much lower the total variance of the two branches would be...
+- compared to the least variance and choose the factor with the lowest total variance
+- if the decrease in variance is more than some threshold delta, and there would be enough data points - we make the split
+- otherwise we assume there would be no benefit in branching
+- once we are done branching we can then go backwards using the other half of the data to prune our tree
+- the other half is used to see whether the estimation error is actually improved by the branching
+- if the branching does improve error the branches stay
+- if the branching actually makes the error get larger or not change we remove the branches
+- after finished branching and pruning we have our final tree
+
+branching methods: can be applied to many problems
+- using a metric related to model's quality...
+- find the best factor to branch with...
+- then check - with hold out data - did this split really improve the model?
+- if not prune the branch (remove it)
+
+rejecting a potential branch:
+- low improvement benefit in our measure of model quality
+- one side of the branch has too few data points (should be at least 5% of the original data)
+
+- note: overfitting our model can be costly; make sure the benefit of each branch is greater than cost!
+
+- next lesson: random forests  

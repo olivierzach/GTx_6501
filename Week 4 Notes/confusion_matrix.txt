@@ -1,0 +1,38 @@
+# week 4 notes Confusion Matrix
+
+confusion measures how well a classification type model works
+- direct classification methods:
+  - support vector machines
+  - k nearest neighbors
+- modeled (probability) classification methods:
+  - logistic regression
+- all of these need a indicator of how well each model does
+
+confusion matrix:
+- of all the things in the 'yes' category - how many did we classify correctly?
+- of all the things in the 'no' category - how many did we classify correctly?
+- how many for each category did the model incorrectly assign?
+- confusion matrix = indicator of how the model is confusing the two classification categories
+
+true positive: tp = point in the category correctly classified
+false positive: fp = point not in category but model says it is
+true negative: tn = point not in category correctly classified by the model
+false negative: fn = point in category but model says it is not!
+
+positive - in the category
+negative - not in the category
+true - model got it right
+false - model got it wrong
+
+fraction of spam in inbox:
+- inbox spam / all inbox email = FP / (TP + FP) = 100 / 490 + 100 = ~17%
+
+fraction of real email lost:
+- real classification as spam / all real email = FN / (TP + FN) = 10 / 490+10 = 2%
+
+common measures in confusion matrix:
+- sensitivity = TP / TP + FN = fraction of category members that are correctly identified
+- specificity = TN / (TN + FP) = fraction of non-category members that are correctly identified
+
+- we can also use the confusion matrix to calculate whatever metrics are important in your analytic problem
+- we can also use the confusion matrix to calculate the expected value or cost of a model's suggestions

@@ -1,0 +1,29 @@
+# Week 4 Notes Random Forests
+
+we know how regression trees work - this lesson we will see how to use more trees
+- many regression trees together is a forest!
+- the ensemble method is called random forest
+
+tree branching: split into leaves by branching on factors that help separate the data into similar sets
+- for each of those sets of data, for each leaf, we build a different regression model
+- in random forest we introduce randomness
+- generate many different trees (different strengths, weaknesses)
+- average of all trees may be better than just one single tree?
+
+Introduction Randomness:
+- we introduce randomness using the bootstrap process
+- first we give each tree a slightly different set of data
+- we randomly pick the data is resampling in each tree
+- instead of including all possible factors to branch on in each tree - we only feed each tree a smaller subset of factors
+- then for each tree we go through the normal tree fitting process with random data and data factors for each
+- random forests do not need to be pruned - we will average them all up together after all random trees have been fit
+- each tree has slightly different data and factors
+- usually we end up with lots of different trees - which equals the random forest
+- each of these trees will be built up of their own unique models
+- we use the average predicted response over the whole forest to get a prediction!
+- benefits: better estimates (reduces overfitting across all trees)
+- drawbacks: inference - relative importance is calculated but does not explain how branches interact
+- we also cannot give us a specific regression or classification model for the data
+- all the trees are different - best is an aggregate model
+- random forest = 'default' model or black box
+- will not help give detailed insight as it is harder to interpret

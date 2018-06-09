@@ -1,0 +1,8 @@
+# week 4 notes confusion matrix comparison
+
+measures of model quality to evaluate model's quality and choose the best model for the problem
+add the cost into our model performance
+we can set up costs for each of the confusion matrix outputs
+combine them all together to get the overall cost based on model
+we can use this cost and the confusion matrix to evaluate models
+cost will balance the true positives and true negatives in overall model performance
