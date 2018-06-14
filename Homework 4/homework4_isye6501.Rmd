@@ -1,0 +1,453 @@
+---
+title: "homework4_isye6501"
+author: "Zach Olivier"
+date: "6/9/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# set up directory and packages
+setwd('~/Desktop/GTX/Homework 4/')
+
+# load packages
+pacman::p_load(tidyverse, kernlab, caret, kknn, modelr, ggthemes, corrplot, MASS, DMwR)
+
+```
+
+## Question 9.1
+
+Question:
+
+Using the same crime data set uscrime.txt as in Question 8.2, apply Principal Component Analysis and then create a regression model using the first few principal components. Specify your new model in terms of the original variables (not the principal components), and compare its quality to that of your solution to Question 8.2. 
+
+<br>
+
+Answer:
+
+Here are my steps to apply PCA to the crime dataset covered in the last homework. First we read in the data and transform it using the caret preProcess function. This function allows you to apply the centering, scaling, and principal component analysis all in one function call. After applying these steps I can extract the rotation of the preProcess object to see the linear combination of each prediction that makes up each PCA. 
+
+Now that we have our clean and tidy component dataset, we can begin the model fitting process. First I split our dataset into test and training dataset (note we have very few observations) using a split of 75% train and 25% test. 
+
+**With the training and test sets ready, I use caret's train function to fit a simple linear regression on crime versus the first five principal components. Utilizing cross validation the model achieves ~71% R^2 on the training data.**  
+
+**Using this model to predict onto the test set - our model achieves an R^2 value of ~21%. It seems using PCA on such small data has led us to severly overfit our data**
+
+
+**Finally we use this model to predict the same 'new state' provided in the previous homework. The PCA linear regression crime prediction is 1419.68**
+
+
+I noticed a sizeable difference between the linear regression and and PCA linear regression (around 750 crime prediction vs. 1030 crime prediction). My simple linear regression from the previous homework tried to manually exclude variables based on correlation, and I only fine tuned the model with a training and a test set. The applying PCA to such a small dataset caused our model to severly overfit the data. I would recomend going with the standard linear regression model in this case with so few data points. 
+
+**Here is the final model represented in the form of the original unscaled predictors:**
+ 
+
+Unscaled Intercept and Coefficient Estimates:
+
+        - Intercept -8217.3918
+        - M         86.4716149
+        - So       114.1757429
+        - Ed        12.6174416
+        - Po1       38.6866613
+        - Po2       38.1541277
+        - LF      2911.6391584
+        - M.F       50.1266387
+        - Pop        1.4129029
+        - NW        12.9416492
+        - U1      -666.5257377
+        - U2        16.9883283
+        - Wealth     0.0174338
+        - Ineq      13.5104521
+        - Prob   -1889.0022929
+        - Time       6.4230641
+ 
+ 
+
+
+
+``` {r pca, message = FALSE}
+
+set.seed(110)
+
+# read in the crime data
+crime_df = read_delim('9.1uscrimeSummer2018.txt', delim = '\t') %>% 
+        as.data.frame()
+
+
+
+## eigenvalue / eigenvector lesson for reference
+# crime_mat <- as.matrix(crime_df)
+
+# x_t_x <- t(crime_mat)%*%crime_mat
+# ev <- eigen(x_t_x)
+#ev$vectors
+
+# for (i in 1:ncol(crime_df)) {
+#         print(det(x_t_x - ev$values[i]*diag(ncol(crime_df))))
+# }
+
+## solve this system of equations to get unique eigenvalues
+## does not have to be true to calculate eigenvalues in PCA
+## determinant does not have to evaluate to 0
+# (x_t_x) * v = lambda * v
+# [x_t_x - lambda * I] * v = 0
+# det[x_t_x - lambda * I] = 0
+
+
+
+
+
+# using cool caret functions to transform predictor data - including box cox transformation
+transform_df = caret::preProcess(
+        crime_df %>% dplyr::select(., -Crime), 
+        method = c('center', 'scale', 'nzv', 'pca')
+        )
+
+# look at the linear combination of the predictors for each principal component
+transform_df$rotation
+
+# apply processing steps to data - select only the first 5 PC
+crime_mod_df <- predict(transform_df, crime_df) %>% 
+        dplyr::select(Crime, PC1:PC5)
+
+
+# set up train and testing split
+train <- createDataPartition(crime_mod_df$Crime, p = .75, list = F)
+
+# set up test and train datasets
+crime_train <- crime_mod_df[train,]
+crime_test <- crime_mod_df[-train,]
+
+# check splits
+dim(crime_train); dim(crime_test)
+
+
+# fit model
+crime_fit <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'lm',
+        trControl = trainControl(method = 'cv')
+        )
+
+summary(crime_fit)
+
+# check performance on validation set
+crime_eval <- crime_test %>%
+        add_predictions(., crime_fit) %>% 
+        dplyr::select('obs' = Crime, pred) %>% 
+        as.data.frame()
+
+# test set performance metrics
+postResample(obs = crime_eval$obs, pred = crime_eval$pred)
+
+
+
+
+# input state example from previous homework
+new_state = data.frame(
+        M = 14.0,
+        So = 0,
+        Ed = 10.0,
+        Po1 = 12.0,
+        Po2 = 15.5,
+        LF = 0.640,
+        M.F = 94.0 ,
+        Pop = 150,
+        NW = 1.1,
+        U1 = 0.120,
+        U2 = 3.6 ,
+        Wealth = 3200, 
+        Ineq = 20.1 ,
+        Prob = 0.04 ,
+        Time = 39.0
+)
+
+# transform new_state data to feed it into our model based on PCs
+new_state_transform = predict(transform_df, new_state)
+
+# crime prediction for new state based on PCA model
+crime_pred = predict(crime_fit, new_state_transform) %>% 
+        as_tibble()
+
+print(paste('New State Crime Prediction: ', crime_pred$value))
+
+
+
+# format output to support unscaling calculations
+crime_coef <-  summary(crime_fit)$coef %>% as.data.frame() %>% rownames_to_column() %>% 
+        filter(rowname != '(Intercept)') %>% 
+        dplyr::select(2) %>% 
+        as.matrix() %>% 
+        t()
+
+crime_pca <- t(transform_df$rotation[,1:5]) %>% as.matrix()
+
+unscale_x <- crime_coef %*% crime_pca 
+
+crime_int <- summary(crime_fit)$coef %>% as.data.frame() %>% rownames_to_column() %>% 
+        filter(rowname == '(Intercept)') %>% 
+        dplyr::select(2)
+
+
+
+# get the unscaled coefficients and intercept
+intercept <-  crime_int$Estimate - sum(
+        unscale_x * sapply(crime_df[,1:15], mean) / sapply(crime_df[,1:15],sd)
+        )
+
+print(paste('Unscaled Intercept and Coefficient Estimates: ', intercept))
+
+(coefs <- t(unscale_x / sapply(crime_df[,1:15], sd)))
+
+
+
+
+```
+
+<br>
+
+## Question 10.1
+
+Question:
+
+Using the same crime data set uscrime.txt as in Questions 8.2 and 9.1, find the best model you can
+using
+(a) a regression tree model, and
+(b) a random forest model. In R,you can use the tree package or the rpart package, and the randomForest package. For each model, describe one or two qualitative takeaways you get from analyzing the results (i.e., don’t just stop when you have a good model, but interpret it too).
+
+<br>
+
+Answer:
+
+Below are my attempts to fit a regression tree and a regression random forest on the crime dataset. The first thing I noticed is that this dataset is very small (only 47 total observations) - it will be very hard for either model to produce many splits of the data. 
+
+To start we read in the data and set up the test and training splits. Tree based models are predictor scale and magnitude agnostic, so I did not apply at scaling or transformations beforehand. I also choose a relatively high proportion to split the data in order to give each model the most amount of data possible. 
+
+To combat the small amount of training data, I utilize a bootstrap method with 1000 bootstrap samples instead of a typical cross validation method. My thinking is that bootstrapping will give a better model than folding the training set k times. In this case our bootstrap will randomly sample 36 observations of the training set with replacement 1000 times. 
+
+
+The results of each model are as follows:
+
+        - Regression Tree:  test set RMSE = 558.9631 
+        - Random Forest: test set RMSE = 515.75088075 
+        
+**Note: with such a small test set these values can be misleading. I would expect the true RMSE to be closer to the bootstrapped RMSE taken from the training data. To remedy this situation we need more data.**
+
+Model Observations:
+
+        - The regression tree splits past the terminal node on Pol > 7.8 and N < 7.65
+        - This is a relatively small tree most likely limited by the size of the data
+        - Random Forests are hard to interpret (multiple regression trees a built in parallel with random features)
+        - Noticed that random forest created 500 different trees - mostly likely all very similiar due to data constaints
+
+<br>
+
+
+```{r trees, fig.align= 'center', message = FALSE}
+
+set.seed(45)
+
+# read in the crime data
+crime_df = read_delim('9.1uscrimeSummer2018.txt', delim = '\t') %>% 
+        as.data.frame()
+
+# apply processing steps to data 
+crime_mod_df <- crime_df
+
+# set up train and testing split
+train <- createDataPartition(crime_mod_df$Crime, p = .85, list = F)
+
+# set up test and train datasets
+crime_train <- crime_mod_df[train,]
+crime_test <- crime_mod_df[-train,]
+
+# check splits
+dim(crime_train); dim(crime_test)
+
+
+
+# fit regression tree model
+(crime_tree_fit <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'rpart',
+        trControl = trainControl(method = 'boot_all', number = 1000),
+        metric = 'RMSE'
+        ))
+
+crime_tree_fit$finalModel
+
+library(rpart.plot)
+
+# view final decision tree
+rpart.plot::rpart.plot(crime_tree_fit$finalModel)
+
+
+# check performance on validation set
+crime_eval <- crime_test %>%
+        add_predictions(., crime_tree_fit) %>% 
+        dplyr::select('obs' = Crime, pred) %>% 
+        as.data.frame()
+
+# test set performance metrics
+postResample(obs = crime_eval$obs, pred = crime_eval$pred)
+
+
+
+
+# fit regression random forest tree model
+(crime_forest_fit <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'rf',
+        trControl = trainControl(method = 'boot_all', number = 1000),
+        metric = 'RMSE'
+        ))
+
+crime_forest_fit$finalModel
+
+
+
+
+# check performance on validation set
+crime_eval <- crime_test %>%
+        add_predictions(., crime_forest_fit) %>% 
+        dplyr::select('obs' = Crime, pred) %>% 
+        as.data.frame()
+
+# test set performance metrics
+postResample(obs = crime_eval$obs, pred = crime_eval$pred)
+
+
+
+
+
+```
+
+
+## Question 10.2
+
+Question:
+
+Describe a situation or problem from your job, everyday life, current events, etc., for which a logistic regression model would be appropriate.
+List some (up to 5) predictors that you might use.
+
+<br>
+
+Answer:
+
+Logistic Regression can be very useful for many business analytic problems. Being able to assign and interpret probabilities of some outcome can solve the need for prediction and inference. In my own experience, I used logistic regression to determine which benefits are most revelant to a customer segmentation we wanted to shift our product into. Using sales data I treated the response as a binary - did our target customer make this purchase - and feed in the product features as the predictors. This allowed us to assign importance to difference features and also have a indication of the impact adding these features to other products would have on our target buyer. 
+
+Here are some predictors I used:
+
+        - Price
+        - Discount Level
+        - Package purchased
+        - Upgrades purchased
+        - Purchase profile of previous products
+
+
+<br>
+
+## Question 10.3
+
+Question:
+
+1. Using the GermanCredit data set germancredit.txt from http://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german / (description at http://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29 ), use logistic regression to find a good predictive model for whether credit applicants are good credit risks or not. Show your model (factors used and their coefficients), the software output, and the quality of fit.
+You can use the glm function in R. To get a logistic regression (logit) model on data where the response is either zero or one, use family=binomial(link=”logit”) in your glm function call.
+
+2. Because the model gives a result between 0 and 1, it requires setting a threshold probability to separate between “good” and “bad” answers.
+In this data set, they estimate that incorrectly identifying a bad customer as good, is 5 times worse than incorrectly classifying a good customer as bad. Determine a good threshold probability based on your model.
+
+<br>
+
+Answer:
+
+Here are my steps to fit a logistic regression model to the German Credit data. As always we read in the data and create our experiment design splits to prepare for modeling. I utilize the caret package again for a clean output and efficiencies in setting up the data. 
+
+By specifying the method as 'glm' and the family as 'binomial' in the train function - caret will know to transform the response variable into a binary outcome. I will utilize 10-fold cross validation and also instruct the train function to keep the class probabilities the logistic model generates. 
+
+Here are the results of the model on the test dataset. Coefficients are included in the output below. 
+
+        - Accuracy = 0.7267; Sensitivity = 0.5488; Specificity : 0.7936 
+        - This model correctly classified 79% of good customers correctly (negative case is good)
+        
+**If cost is the only thing we care about - we can push the probability parameter to only give a 'good' rating to customers with higher than 95% probability. This allows us to only predict 3 customers as good when they are really bad. However, values for revenue are not given, our threshold might change as we are more strictly classifying good customers as bad - this would be opportunity loss for our firm.**
+
+<br>
+
+
+```{r logistic, fig.align= 'center', message = FALSE, warning=FALSE}
+
+set.seed(9)
+
+data("GermanCredit") 
+
+# read in the crime data
+credit_df <- GermanCredit %>% as.data.frame() 
+
+# training and test data sets
+partition <- createDataPartition(credit_df$Class, p = .8, list = F)
+
+# training and test data sets
+train_credit <- credit_df[partition,]
+test_credit <- credit_df[-partition,]
+
+dim(train_credit); dim(test_credit)
+
+# fit model with cross validation - basic logistic regression
+(credit_mod_glm <- train(
+        Class ~ ., 
+        data = train_credit,
+        method = 'glm',
+        family = 'binomial',
+        trControl = trainControl(method = 'cv', classProbs = T),
+        metric = 'Accuracy'
+        ))
+
+coef(credit_mod_glm$finalModel)
+
+# predict back onto test data set
+credit_pred_glm <- test_credit %>% add_predictions(credit_mod_glm) %>% 
+        dplyr::select(Class, pred) %>% 
+        as.data.frame()
+
+confusionMatrix(credit_pred_glm$Class, credit_pred_glm$pred)
+
+
+# finding the best tuning parameter based on cost
+# estimate that incorrectly identifying a bad customer as good is 5 times worse 
+preds_p <- stats::predict(credit_mod_glm, test_credit, type = 'prob') %>% cbind(Class = as.character(test_credit$Class)) %>% 
+        mutate(prob_pred =  ifelse(Good > .95, 'Good', 'Bad'))
+
+confusionMatrix(preds_p$Class, preds_p$prob_pred)
+
+# fit model with cross validation - bonus ! regularized logistic regression using glmnet!
+(credit_mod_glmnet <- train(
+        Class ~ ., 
+        data = train_credit,
+        method = 'glmnet',
+        family = 'binomial',
+        trControl = trainControl(method = 'cv', classProbs = T),
+        metric = 'Accuracy'
+        ))
+
+# view coefficients of best tuned glmnet model
+coef(credit_mod_glmnet$finalModel, credit_mod_glmnet$bestTune$lambda)
+
+# predict back onto test data set
+credit_pred_glmnet <- test_credit %>% add_predictions(credit_mod_glmnet) %>% 
+        dplyr::select(Class, pred) %>% 
+        as.data.frame()
+
+confusionMatrix(credit_pred_glmnet$Class, credit_pred_glmnet$pred)
+
+
+
+
+
+
+```
+
