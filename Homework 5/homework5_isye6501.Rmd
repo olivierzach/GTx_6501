@@ -1,0 +1,157 @@
+---
+title: "homework5_isye6501"
+author: "Zach Olivier"
+date: "6/9/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# set up directory and packages
+setwd('~/Desktop/GTX/Homework 5/')
+
+# load packages
+pacman::p_load(tidyverse, kernlab, caret, kknn, modelr, ggthemes, corrplot, MASS, DMwR)
+
+```
+
+## Question 11.1
+
+Question:
+
+Using the crime data set uscrime.txt from Questions 8.2, 9.1, and 10.1, build a regression model using:
+1. Stepwise regression 2. Lasso 3. Elastic net For Parts 2 and 3, remember to scale the data first - otherwise, the regression coefficients will be on different scales and the constraint won't have the desired effect. 
+For Parts 2 and 3, use the glmnet function in R
+
+<br>
+
+Answer:
+
+Here are my steps to apply PCA to the crime dataset covered in the last homework. First we read in the data and transform it using the caret preProcess function. 
+This function allows you to apply the centering, scaling, and principal component analysis all in one function call. 
+After applying these steps I can extract the rotation of the preProcess object to see the linear combination of each prediction that makes up each PCA. 
+
+
+<br>
+
+``` {r glmnet, message = FALSE}
+
+set.seed(110)
+
+# read in the crime data
+crime_df = read_delim('9.1uscrimeSummer2018.txt', delim = '\t') %>% 
+        as.data.frame()
+
+
+# using cool caret functions to transform predictor data 
+transform_df = caret::preProcess(
+        crime_df %>% dplyr::select(., -Crime), 
+        method = c('center', 'scale', 'nzv')
+        )
+
+
+# set up train and testing split
+train <- createDataPartition(crime_mod_df$Crime, p = .75, list = F)
+
+# set up test and train datasets
+crime_train <- crime_mod_df[train,]
+crime_test <- crime_mod_df[-train,]
+
+# check splits
+dim(crime_train); dim(crime_test)
+
+
+# fit model
+crime_fit <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'lm',
+        trControl = trainControl(method = 'cv')
+        )
+
+summary(crime_fit)
+
+# check performance on validation set
+crime_eval <- crime_test %>%
+        add_predictions(., crime_fit) %>% 
+        dplyr::select('obs' = Crime, pred) %>% 
+        as.data.frame()
+
+# test set performance metrics
+postResample(obs = crime_eval$obs, pred = crime_eval$pred)
+
+
+
+```
+
+<br>
+
+## Question 12.1
+
+Question:
+
+Describe a situation or problem from your job, everyday life, current events, etc., for which a design of experiments approach would be appropriate. 
+
+<br>
+
+Answer:
+
+One situation I can imagine is combining a model's output with a carefully designed study to learn more about our target population. We can develop a model that scores customers with probabilities of purchase. Then we can market to these customers with the highest probability. This seems great, but what if those customers were most likely to purchase anyway, and we wasted marketing on 'sure things'? Experiment design can help us with this problem. We can group our customers into probability bands and see which probability group is more responsive to marketing emails. It may turn out that we should market to customers in the 40% range - they are on the edge of purchase and need marketing to persuade them. This combination of model output and a cleverly designed experiment and be really powerful. 
+
+
+<br>
+
+
+
+
+## Question 12.2
+
+Question:
+
+To determine the value of 10 different yes/no features to the market value of a house (large yard, solar roof, etc.), a real estate agent plans to survey 50 potential buyers, showing a fictitious house with different combinations of features.  To reduce the survey size, the agent wants to show just 16 fictitious houses. Use R's FrF2 function (in the FrF2 package) to find a fractional factorial design for this experiment: what set of features should each of the 16 fictitious houses have?  Note: the output of FrF2 is "1" (include) or  "-1" (don't include) for each feature
+
+<br>
+
+Answer:
+
+Logistic Regression 
+
+
+<br>
+
+
+```{r partial factor, fig.align= 'center', message = FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+## Question 13.1
+
+Question:
+
+For each of the following distributions, give an example of data that you would expect to follow this distribution (besides the examples already discussed in class). 
+a. Binomial    b. Geometric    c. Poisson    d. Exponential   e. Weibull
+
+<br>
+
+Answer:
+
+Examples of the distributions above include:
+
+
+    - Binomial: probability of acceptance to a prestigious college (success p = .15)
+    - Geometric: probability of passing an exam on a certain attempt (i.e we keep taking it the exam until we pass)
+    - Poisson: number of visits to a certain webpage for given time period
+    - Exponential: times between when cars arrive to the work parking garage
+    - Weibull: how long will it take for my car battery to fail
+
+
+
+<br>
+
+
