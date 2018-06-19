@@ -1,0 +1,26 @@
+# Week 5 Notes Factorial Design
+
+A / B testing - compare between simple alternatives
+
+Factorial Design: what factors are import?
+- test effectiveness of every combination in our ads (full factorial design)
+- after testing them all - basic anova can tell which are important
+- testing combinations quickly scales outside the realm of possibility (fractional factorial design)
+- limit the tests to a subset of important subsets first then test to see most important factors
+
+design depends on data
+- fractional experiment design might be more feasible
+- we can cleverly design our choices to be 'representative' of all different options
+- i.e. test attributes across the minimum number of cases to get full representation of each choice
+- balanced design:
+- test each choice the same number of times
+- test each pair of choices the same number of times
+- good designs are essential to creating a representative test
+- independent factors:
+- test subset of combinations
+- use regression to estimate effects
+- regression can model the response as 'clicks' based on each of the factors included (if independent factors)
+
+Key Takeaway:
+- all of these DOE methods can be helpful when they are used for modeling or even before the data is collected!
+- factorial design can be a powerful tool to determine the best comparisons to make and explain the results of the final choices

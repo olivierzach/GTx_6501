@@ -1,0 +1,28 @@
+# Week 5 Notes Variable Selection
+
+what do we do with a lot of factors in our models?
+variable selection helps us choose the best factors for our models
+variable selection can work for any factor based model - regression / classification
+
+why do we not want a lot of factors in our models?
+
+- overfitting: when the number of factors is close or larger than number of data points our model will overfit
+- overfitting: model captures the random effect of our data instead of the real effects
+too many factors is the same idea - we will model too much of the random effects in our model
+with few data points overfitting can cause bad estimates
+if too many factors our model with be influenced too much by the random effect of that data
+with few data our model can even fit unrelated variables!
+
+- simplicity: simple models are more easier to interpret
+- collecting data can be expensive
+- with less factors less data is required to production the model
+- fewer factors - less chance of including factor that is meaningless
+- easier to explain to others
+- we want to know the why? hard to do with too many factors
+- need to clearly communicate what you model is doing
+
+fewer factors is very beneficial!
+
+building simpler models with fewer factors helps avoid -
+- overfitting
+- difficulty of interpretation

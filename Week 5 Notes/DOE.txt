@@ -1,0 +1,23 @@
+# Week 5 Notes Experiment Design
+
+introduction to design of experiments
+- we assumed we already have data
+- data can be easily collected
+- this is not the case...
+- getting the full set of data is impossible or will take too long
+- we need: DOE collect best subset quickly and efficiently
+- need to make sure the data we get will be sufficient to answer our questions
+- how to make our data representative of all our factors?
+
+Design of Experiments (DOE)
+- comparison and control: compare two things but need to control for other factors
+- need to match across comparisons across other factors than the study we are setting up
+- need to control for the effects of our other variables
+- data has the same mix
+- or breakdown the data into smaller sets to test all important factors
+
+- blocking: creating variation
+- type is a blocking factor that we can account for
+- we want to reduce the variability by eliminating variation on certain factors
+- sports cars more likely to be red
+- analyze red sports cars and red family cars in separate sets to reduce variance

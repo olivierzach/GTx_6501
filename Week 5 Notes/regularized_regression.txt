@@ -1,0 +1,46 @@
+# Week 5 Notes variable selection
+
+- greedy variable selection - stepwise
+- global optimization - LASSO, ridge, Elastic net
+
+how do we choose between these methods?
+
+stepwise methods: good for exploration and quick analysis
+- stepwise is the most common
+- can give set of variables that fit to random effects
+- they might generalize as well to new data
+
+global optimization: slower but better for prediction
+- LASSO, Elastic Net
+
+Regularized Regression:
+LASSO:
+- minimize sumof((yi - (a0 _ a1x1 + a2x2 + ... + ajxji))^2)
+subject to sumof(|ai|) <= t
+- some coefficients forced to zero to simplify model
+- will take some variables to zero but they may not be the ones we want!
+- with correlated variables, LASSO will only keep one but it not be 'right' in terms of cost or interpretation
+
+RIDGE:
+- minimize sumof((yi - (a0 _ a1x1 + a2x2 + ... + ajxji))^2)
+subject to sumof(ai^2) <= t
+- coefficients shrink toward 0 to reduce variance in estimate (never get to 0)
+- important coefficients will be shrunk
+- this might give higher bias in hopes of better variance performance
+- really good predictors might be underestimated by this method
+
+Elastic Net:
+- minimize sumof((yi - (a0 _ a1x1 + a2x2 + ... + ajxji))^2)
+subject to  lambda * sumof(|ai|) + (1- lambda)*sumof(ai^2) <= t
+- elastic net is LASSO regression plus RIDGE regression
+- quadratic term shrinks the coefficient values - regularized close to 0
+- shrinking the coefficients give bias but reduces variance
+- trading off bias to variance can lead to model improvement
+- remember: performance is reducing bias and variance!
+- Elastic Net gets the selection benefits of LASSO with the predictive benefits of RIDGE!
+- Elastic Net also gets some of the drawbacks for both models as well
+- Elastic Net will arbitrarily rule out some correlated variables like LASSO
+- Elastic Net will underestimate coefficients of very predictive variables like RIDGE
+
+try many different versions and compare the results
+models provide insight and direction but need to decide on all inputs

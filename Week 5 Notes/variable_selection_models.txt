@@ -1,0 +1,50 @@
+# Week 5 Notes Variable Selection Models
+
+models can automate the variable selection process
+all can be applied to all types of models
+
+two types:
+- step-by-step building a model
+
+forward selection: start with a model that has no factors
+- step by step add variables and keep the variable is there is model improvement
+- we can limit the model by a number of thresholds
+- after built up we can go back and remove any variables that might not be important after full model is fit
+- we can judge factors by p value (.15 of exploration or .05 for final model)
+
+backward elimination: start with a model with all factors
+- step by step remove variables that are 'bad' based on p value
+- continue to do this until all variables included are 'good' variables or we reached a factor number criteria
+- factors can be judged by p value (.15 for exploration and .05 for final model)
+
+stepwise regression: combination of forward selection and backward elimination
+- start with all or no variables
+- at each step add or remove a factor based on some pvalue criteria
+- model will adjust older factors based on what new values we add to the model
+- we can use other metrics AIC, BIC, R^2 to measure 'good' variables in any step by step method
+
+step-by-step = greedy algorithm, does the one step that is the best without taking future options into account
+- these are model 'classical'
+
+newer methods based on optimization models that look at all possible options at the same time
+
+- LASSO: add a constraint to the standard regression equation to bound coefficients from getting large
+- sum of the coefficients sumof(|ai|) <= t
+- regression has a budget t to use on coefficients
+- factors that are not important will be dragged down to 0
+- constraining any variables means we need to scale the data beforehand!
+- how to be pick t?
+- number of variables and quality of model?
+- try LASSO with different values of t and choose the best performance
+
+- Elastic Net: combination of LASSO and RIDGE regression
+- constrain a combination of the absolute value of the sum of coefficients vs. the squared sum of coefficients
+- need to scale the data
+- sumof(ai^2) <= t
+- without the absolute term we have RIDGE regression
+- these are global approaches to variable selection
+
+what is the key difference between stepwise and LASSO regression?
+- lasso has a regularization term and requires the data to be scaled beforehand
+- in regression contexts LASSO needs to be scaled
+- size constraint will pick up the wrong values because magnitude of factors messes with the coefficient estimates!

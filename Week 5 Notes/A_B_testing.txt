@@ -1,0 +1,21 @@
+# Week 5 notes A / B Testing
+
+- use analytics to pick the best set of different alternatives
+- using design of experiments to A / B test
+- collect some data
+- randomly serve up ads and track how they are clicked
+- we will have binomial ads based on clicks for each banner add
+- we can use a basic hypothesis test to determine which add is better
+- can do hypothesis testing on the fly
+- this is A / B testing: choosing between two alternatives
+
+to do A / B testing we need to satisfy these three things:
+1. collect data quickly (lots of data)
+2. data must be representative of entire population
+3. data must be small compared to the whole population (need a smaller slice of the total traffic)
+
+- common approach in marketing
+- what about several alternatives?
+- how do we figure out the best alternative?
+- we don't want to waste trials on bad alternatives - how do we manage this?
+- how to be test multiple factors accounting for our 'budget' of possible test cases?

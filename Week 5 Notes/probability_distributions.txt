@@ -1,0 +1,67 @@
+# Week 5 Notes Probability Distributions
+
+probability distributions
+- sometimes simple approaches work better
+- can use simple probability distributions instead of modeling a bunch of factors
+- probability models can model certain problems that allow us to 'skip' factor based modeling
+- matching data to a probability distribution can give insight
+- important when we only have the response or hard to get new data
+
+focus on which distributions will be good for modeling:
+
+Bernoulli: more flexible coin flip
+p = 'heads'
+1 - p = 'not heads'
+can model any event
+- very useful when we string the event probabilities together
+- Bernoulli trials - the probability p of our event stays the same from time period to time period
+- test: observe successes and use the distribution to see what the probability is to get that same number of successes
+- this is the binomial distribution: we can examine the probability mass function
+- probability of getting x successes out of n independent identically distributed Bernoulli trials
+- binomial distribution converges to normal distribution
+- P(X = x) = (n x) p^x(1 - p)^n-x
+- as n gets very large the binomial distribution converges to the normal distribution
+- normal distribution is useful for predicting errors
+
+Geometric Distribution:
+- PMF: P(X = x) = (1-p)^x * p
+- probability of having x bernoulli(p) failures until first success
+- or flipped, x bernoulli (1 - p) successes until first failure
+- we have to be careful of how we define p and 1-p in this distribution
+- we can compare data to geometric to test whether i.i.d is true
+- if something fits the geometric distribution then we can assumme i.i.d will hold
+- this is a way to check if an outcome is actually being treated as independent!
+
+Poisson Distribution:
+- fx(x) = lambda^x * e^-lambda / x!
+- good at modeling random arrivals
+- lambda is the average number of arrivals
+- probability x people arrive given lambda (average arrival rate)
+- this assumes that arrivals are independent and identically distributed (i.i.d)
+
+Exponential Distribution:
+- related to the poisson distribution
+- models the inter-arrival time
+- if arrivals are poisson with lambda arrival average time
+- the time between successive arrivals is an exponential distribution (lambda)
+- poisson arrivals = exponential inter-arrivals time and vice versa
+- PMF: fx(X) = lambda * e^-lambda*x
+- 1 / lambda is the average inter-arrival time
+
+Weibull Distribution:
+- amount of time it takes for something to fail
+- similar to geometric exempt time passed instead of instances
+- PMF = fx(x) = k / lambda * (x / lambda)^k-1 * e^-(x/lambda)^k
+- lightbulb: how many flips before failure = geometric
+- lightbulb: how long to leave lightbulb on before failure = Weibull
+- additional parameter k
+- K < 1 = models when failure rate decreases with time 'worse things fail first'
+- K > 1 = models when failure rate increases with time 'things that wear out'
+- K = 1 = failure rate is constant with time
+- when k = 1 weibull reduces to exponential distribution
+
+how do we tell is our data fits one of these distributions?
+- fit to best distribution and give the best fit parameters for the fit = software
+- can also fit to many different models at once to figure out the best distribution
+- warning: only use software as guide - data may have random noise in it
+- think about what the output means before using it!

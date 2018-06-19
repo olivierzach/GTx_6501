@@ -1,0 +1,21 @@
+# Week 5 Notes Q-Q Plots
+
+probability based models:
+-visualize whether two distributions are the same
+- see if data is similar to a distribution
+- visualization is important to see what the software is outputting
+
+Q-Q Plot:
+- idea of this plot is that whatever variations in the data
+- even if the number of data points in two sets is very different...
+- two similar distributions should have about the same value at each quantile
+- ex. in each of the two datasets the value that at the 10th percentile should be close to the same for each distribution
+- this should be true at any percentile if the distributions are similar
+- the q-q plot show this graphically
+- plot median vs. median for each distribution
+- do this for all percentiles - sample 1 vs. sample 2
+- want a 45 degree line to say that the distributions match
+- this would be the same as a statistical test - but the plot let's us see why (where are the distributions different)
+- raw statistical test can be misleading (small tail differences)
+- we can compare two datasets or just one dataset to compare to a other distribution
+- compare the actuals to the 'perfect' simulated distribution to see if there is a good match

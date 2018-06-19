@@ -1,0 +1,39 @@
+# Week 5 Notes Multi-Armed Bandit
+
+determine the better of two alternatives
+- AB testing - try it out an test which is better
+- hypothesis test
+- we can also test factors in factorial design
+
+exploration vs. exploitation
+- there is a cost for each test - we may be losing value
+- the number of tests can be wasted on tests
+- say we find after 1000 tests that option A was the best: all tests with option B would have been wasted
+- these wrong adds are lost value
+- trade off between being sure are losing value in testing
+- balance benefits from more information vs. getting more value
+- this is exploration vs. exploitation
+- exploration - certainty in knowing the correct answer
+- exploitation - maximizing immediate value
+- this is the multi-armed bandit problem
+- slot machine = one armed bandit (negative expected value)
+- several slot machines = different expected payout - only way to find out is to test them all
+
+- multi-armed bandit:
+- start with k alternatives:
+- start with no information - equal probability of selecting each alternative
+- run some tests and gather some information
+- update our probabilities based on our initial tests
+- then assign new tests skewed towards the new probabilities
+- we are testing multiple options so we are still exploring...
+- but we are skewing our tests to try and take advantage of exploitation
+- do this until answer is absolutely clear of the best case
+- it might take longer to get to the clear answer but we will have attempted to maximize value by shifting choice to the 'hot' choice in terms of success
+
+- MAB parameters
+- # of tests between recalculating probabilities
+- how to update our probabilities of success
+- change how we assign new tests
+
+no simple rule but works better than fixed large number of tests
+- worthwhile: learn faster on the fly and create more value
