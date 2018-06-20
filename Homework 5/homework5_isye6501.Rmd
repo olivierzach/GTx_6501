@@ -9,10 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 # set up directory and packages
-setwd('~/Desktop/GTX/Homework 5/')
+setwd('C:/Users/zolivier/Desktop/Homework 5')
 
 # load packages
-pacman::p_load(tidyverse, kernlab, caret, kknn, modelr, ggthemes, corrplot, MASS, DMwR)
+pacman::p_load(tidyverse, kernlab, caret, kknn, modelr, ggthemes, corrplot, MASS, DMwR, FrF2)
 
 ```
 
@@ -28,9 +28,21 @@ For Parts 2 and 3, use the glmnet function in R
 
 Answer:
 
-Here are my steps to apply PCA to the crime dataset covered in the last homework. First we read in the data and transform it using the caret preProcess function. 
-This function allows you to apply the centering, scaling, and principal component analysis all in one function call. 
-After applying these steps I can extract the rotation of the preProcess object to see the linear combination of each prediction that makes up each PCA. 
+Below are my steps to fit a stepwise regression, lasso regression, and elastic net regression to the crime data set.
+
+We start by reading in the data and then transform the data using caret's PreProcess function. Then I develop training and test data sets to prepare for fitting each model. We can use the same training data to fit each model and judge their relative performance via cross validation (k = 10).
+
+Output from each model and the best tuned model's coefficients are shown below. 
+
+Here are the results:
+
+    - Stepwise: R^2 = 82%
+    - LASSO: R^2 = 81% (alpha = 1, lambda = .8)
+    - Elastic Net: R^2 = 80% (aplha = .5, lambda = 5.5)
+    
+**Overall it seems the stepwise regression performs the best on our training dataset. It will be interesting to see if these results generalize to new data, the regularization of the LASSO and Elastic Net may boost test set accuracy. It is also interesting that in both the LASSO and Elastic Net model regularization is fairly small. Time is the only variable that is taken completely to zero by LASSO and Elastic Net with such a small regularization penalty.**
+    
+
 
 
 <br>
@@ -40,7 +52,7 @@ After applying these steps I can extract the rotation of the preProcess object t
 set.seed(110)
 
 # read in the crime data
-crime_df = read_delim('9.1uscrimeSummer2018.txt', delim = '\t') %>% 
+crime_df = read_delim('11.1uscrimeSummer2018.txt', delim = '\t') %>% 
         as.data.frame()
 
 
@@ -49,6 +61,8 @@ transform_df = caret::preProcess(
         crime_df %>% dplyr::select(., -Crime), 
         method = c('center', 'scale', 'nzv')
         )
+
+crime_mod_df <- predict(transform_df, crime_df)
 
 
 # set up train and testing split
@@ -62,24 +76,76 @@ crime_test <- crime_mod_df[-train,]
 dim(crime_train); dim(crime_test)
 
 
-# fit model
-crime_fit <- train(
+set.seed(110)
+
+
+# fit model - stepwise
+crime_step <- train(
         Crime ~ ., 
         data = crime_train,
-        method = 'lm',
-        trControl = trainControl(method = 'cv')
+        method = 'glmStepAIC',
+        trControl = trainControl(method = 'cv'),
+        trace = 0
         )
 
-summary(crime_fit)
+coef(crime_step$finalModel)
 
-# check performance on validation set
-crime_eval <- crime_test %>%
-        add_predictions(., crime_fit) %>% 
-        dplyr::select('obs' = Crime, pred) %>% 
-        as.data.frame()
+crime_step$results
 
-# test set performance metrics
-postResample(obs = crime_eval$obs, pred = crime_eval$pred)
+
+set.seed(110)
+
+
+# fit model - lasso
+crime_lasso <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'glmnet',
+        trControl = trainControl(method = 'cv'),
+        tuneGrid=expand.grid(
+              .alpha=1,
+              .lambda=seq(0, 100, by = .1))
+        )
+
+# lasso coefficients with best tuned regularization parameter lambda (alpha hard coded at 1 for lasso)
+coef(crime_lasso$finalModel, crime_lasso$bestTune$lambda==crime_lasso$bestTune$lambda)
+
+# best tune performance
+crime_lasso$results %>% as_tibble() %>% 
+  filter(
+    lambda == crime_lasso$bestTune$lambda
+    )
+
+
+set.seed(110)
+
+
+# fit model - elastic net
+crime_elastic <- train(
+        Crime ~ ., 
+        data = crime_train,
+        method = 'glmnet',
+        trControl = trainControl(method = 'cv'),
+        tuneGrid=expand.grid(
+              .alpha= .5,
+              .lambda=seq(0, 100, by = .1))
+        )
+
+# elastic net coefficients with best tuned regularization parameter lambda and alpha
+coef(
+  crime_elastic$finalModel,
+  crime_elastic$bestTune$lambda==crime_elastic$bestTune$lambda & 
+  crime_elastic$bestTune$alpha == crime_elastic$bestTune$alpha
+     )
+
+# best tune performance
+crime_elastic$results %>% as_tibble() %>% 
+  filter(
+    alpha == crime_elastic$bestTune$alpha, 
+    lambda == crime_elastic$bestTune$lambda
+    )
+
+
 
 
 
@@ -115,7 +181,7 @@ To determine the value of 10 different yes/no features to the market value of a 
 
 Answer:
 
-Logistic Regression 
+Below is the implementation of the fractional factorial design for 16 open houses based on 10 features. Output below shows which house should have which features to show to prospective house buyers. 
 
 
 <br>
@@ -123,9 +189,19 @@ Logistic Regression
 
 ```{r partial factor, fig.align= 'center', message = FALSE, warning=FALSE}
 
+set.seed(40)
 
-
-
+(houses <- FrF2(
+  16, 10, 
+  factor.names = c(
+    'Large Yard', 'Pool', 'Solar Roof', 'Long Driveway', 'Multi Car Garage',
+    'Walk-In Closet', 'Man Cave', 'Full Bar', 'Gazebo', 'Elevator'
+    ),
+  default.levels = c('Yes', 'No')
+  ) %>% 
+  as_tibble() %>% 
+  rownames_to_column('House')
+ )
 
 
 ```
