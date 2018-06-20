@@ -40,7 +40,7 @@ Here are the results:
     - LASSO: R^2 = 81% (alpha = 1, lambda = .8)
     - Elastic Net: R^2 = 80% (aplha = .5, lambda = 5.5)
     
-**Overall it seems the stepwise regression performs the best on our training dataset. It will be interesting to see if these results generalize to new data, the regularization of the LASSO and Elastic Net may boost test set accuracy. It is also interesting that in both the LASSO and Elastic Net model regularization is fairly small. Time is the only variable that is taken completely to zero by LASSO and Elastic Net with such a small regularization penalty.**
+**Overall it seems the stepwise regression performs the best on our training dataset. It will be interesting to see if these results generalize to new data, the regularization of the LASSO and Elastic Net may boost test set accuracy. It is also interesting that in both the LASSO and Elastic Net model regularization is fairly small. Time is the only variable that is taken completely to zero by LASSO and Elastic Net with such a small regularization penalty. Plots of the regularized factor coefficients are shown below.**
     
 
 
@@ -93,6 +93,8 @@ coef(crime_step$finalModel)
 crime_step$results
 
 
+
+
 set.seed(110)
 
 
@@ -115,6 +117,8 @@ crime_lasso$results %>% as_tibble() %>%
   filter(
     lambda == crime_lasso$bestTune$lambda
     )
+
+plot(crime_lasso$finalModel)
 
 
 set.seed(110)
@@ -146,7 +150,7 @@ crime_elastic$results %>% as_tibble() %>%
     )
 
 
-
+plot(crime_elastic$finalModel)
 
 
 ```
