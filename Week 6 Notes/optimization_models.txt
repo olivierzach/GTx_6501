@@ -1,0 +1,52 @@
+# Week 6 Notes:  Optimization Models
+
+Optimization:
+- key component of almost all statistical learning procedures
+- can provide descriptive and prescriptive analytics
+- good software for solving models exists but...
+- building models requires human insight and expertise
+
+
+Elements of Optimization Models:
+- Variables, Constraints, Objective Function
+
+Variables:
+- decisions that the optimization solver will pick the best value for
+- example: political candidate scheduling:
+- xi = total time spent in state i
+- yi = number of visits to state i
+- zi = 1 if state i is ever visited, 0 is never visited
+- wid = time spent in state i on day d
+- vid = 1 if state i visited on day d, 0 if not
+- if built correctly optimization software will pick the right values for each item we want to know
+
+Constraints:
+- restrictions on those decisions that we make
+- restrictions on the values of the variables
+- example: political candidate scheduling:
+- constraint: 30 days left in the campaign: sumof(xi) <= 30
+- we want candidate to visit specific state
+- sumof(v, state, d) >= 3 = at least 3 state visits in days 24-30
+- total visits must add up correctly: sumof(d, vid) = yi
+- this is an important constraint: optimization solvers only look at the math to solve
+- solver needs to the constraints to model the real life problem
+
+Objective Function:
+- measure of the quality of our optimization solution
+- the quality of a set of values for our variables which we are trying to maximize or minimize
+- example: political candidate scheduling:
+- the objective function might measure how many additional votes we could expect based on schedule
+- maximize expected new votes == objective function for our example
+- sumof(alpha * population (state i) * sqrt(xi + .33* sumof(xj)) + B*vid*fd)
+- how do we know these values?
+- in order to use optimization models we need to use other models to determine the correct parameters
+- optimization sometimes requires output from other models as the inputs to the optimization model
+
+- solution: value for each variables
+- feasible solution: variable values that satisfy all constraints
+- optimal solution: feasible solution with the best objective value
+- optimal means best!
+
+- variables - decisions to be made
+- constraints - restrictions on variable values
+- objective function - solution quality measure

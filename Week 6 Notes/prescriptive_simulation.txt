@@ -1,0 +1,21 @@
+# Week 6 Notes Prescriptive Simulation
+
+how to use simulation for analysis = Prescriptive analytics
+- asking what-if questions (what would change if we did this?)
+- modify the parameter of the simulation and compare the results
+- some simulation software has ability to determine optimal parameter setting our our simulation
+
+
+Simulation Comparisons:
+ - run simulation with different parameters
+ - compare the system performance between the performance of each set of parameters
+ - be careful:
+ - one set of 'random' observations could be better than another set by random chance
+ - avoid this by using the same random numbers
+ - this requires it's own statistical analysis - are the means different for each set of observations?
+ - using the same random numbers is a non-parametric test  that can tell us about our system
+
+ Simulation can be a powerful tool:
+ - model is only as good as quality of input
+ - missing or incorrect information may lead to incorrect answers
+ 

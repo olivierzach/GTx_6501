@@ -1,0 +1,41 @@
+# Week 6 Notes: Modeling with Binary Variables
+
+optimization can be used to answer prescriptive questions
+variables, constraints, objective functions
+by introducing binary variables into the model we can add complexity
+
+Example: Stock Market Investment
+- invest to balance return and risk
+- B = investment budget
+- n = number of stocks available
+- ri = expected return of stock i relative to market
+- Qij = covariance of returns of stocks i and j
+
+- variables: xi = amount invested in stock i
+- constraints: sumof(xi) <= B (our budget); xi >= 0 for all stocks i (no short selling)
+- objective function:  maximize [sumof(ri * xi) - theta * sumof(i)*sumof(j) Qij * xi * xj]
+- where ri * xi is the expected return
+- the theta term is the risk term
+- this is the Markowitz model proposed as a theoretical framework
+- how would we change this to build an investment strategy?
+
+- transaction fees
+- we can create yi if invested in or not
+- we can add a component to the objective function subtracting out the sumof(t*yi)
+- this is the modeling of the transaction price
+- this is called a fixed charge
+- we also need to link the constraints: xi <= Byi for all stocks i
+- xi >= mi*yi for all stocks i (we need to meet minimum investment stock - have to invest at least mi in stock)
+- ytesla = 1, yamazon + ygoogle + yapple >=1 (invest in tesla, in amazon, google or apple)
+- yfedex = yups (invest in both or neither fedex or ups)
+- ycoke = 1 - ypepsi (invest in exactly one of coke and pepsi)
+- personal investment constraints: sumof(yj >= 5yi) for all energy stocks
+- binary variable: zengery = 1 if invest in energy, 0 if not == sumof(yj >= zengery); zengery >= yi for all energy stocks i
+
+integer variables can be used to write special features as constraints in a model
+- optimization modeling is an art!
+- we can model with binary variables:
+- fixed charges in objective function
+- constraints to choose among options
+- constraints requiring same / opposite decisions
+- if-then constraints

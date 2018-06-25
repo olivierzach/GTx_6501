@@ -1,0 +1,22 @@
+# Week 6 Notes Missing Data
+
+- analytics models are based on data
+- we assume we know all the data
+- what if some of our data is missing?
+
+- data goes missing all the time (think of the system!)
+- machines, humans all break down over time
+- unavailable data
+- missing Data
+- wrong data
+- often patterns in missing or wrong data
+- outliers - data so wrong from another data points
+
+- patterns in missing data
+- some data are more likely to be missing
+- values of one type or more likely to be missing than others
+- example: income (higher income more likely to omit - this is bad)
+- there can be a bias in the missing or given data we have
+
+- we need to choose the best way to handle missing data depending on why the data is missing!
+- choose method on a case by case basis!

@@ -1,0 +1,65 @@
+# Week 6 Notes Queuing
+
+- using distributions to model queues
+
+Example:
+- autodialer automatically calls phone numbers
+- if the call is answered it is put into a queue
+- how many employees should we have?
+  - based on how many people will answer the autodialer
+  - based on duration of call once the employee is on the phone
+
+this can be analyzed based on a queuing system
+- calls are answered and added by a probability distribution
+- we have c number of employees
+- calls leave the system based on another probability distribution
+
+Example:
+- call start is Poisson (lambda)
+- 1 employee
+- call end is Exponential (u) time
+- we can calculate:
+  - expected fraction of time employee is busy
+  - expected waiting time before talking to employee
+  - expected number of calls waiting in queue
+
+Transition Equations to Model the Process:
+- Arrival Rate (calls) = lambda
+- Service Rate (calls) = u > lambda
+- Transition Equations (>= 1 calls in queue)
+  P(next event is an arrival) = lambda / (lambda + u)
+  P(next event is a finished call) = u / (lambda + u)
+- Can calculate:
+  Expected fraction of time employee is busy = lambda / u
+  Expected waiting time before talking to employee = lambda / u(u - lambda)
+  Expected number of calls waiting in queue = lambda^2 / (u(u - lambda))
+
+we can scale the number of employees and can add these into our model
+- all can be solved with closed form answers
+- memoryless property of the Poisson and Exponential probability distributions
+- memoryless = it doesn't matter what's happened in the past, all that matters is where we are now
+- distribution of remaining call time = initial distribution of call time
+- if we fit exponential distribution we know they actions are memoryless
+- this is the same for Poisson distribution - also memoryless
+
+memoryless property:
+- should tire manufacturer pay damage for accident that happened at 10K miles?
+- Probability (tire fails at 10K) = ?
+- tires are more likely to fail the more worn out they are
+- this system is not memoryless
+- it cannot be modeled with the exponential distribution
+- possibly try the Weibull with k > 1
+
+
+Queuing Models:
+- Potential queuing model parameters:
+- general arrival distribution (A) can change
+- general service distribution (S) can also change
+- Number of servers (C)
+- size of the queue (K)
+- population size (N)
+- queuing discipline (D)
+- kendall notation
+- model extensions: potential 'hang-ups', balking etc.
+
+- in these cases we can use simulation to wrangle all this complex math together to fit our parameters

@@ -1,0 +1,27 @@
+# Week 6 Notes Non-Imputation Methods
+
+- data sets are often incomplete with missing data
+- dealing with missing data:
+- throw it away
+- use categorical variables to indicate missing data
+- estimate missing values
+
+Throw Away:
+- not potentially introduce errors
+- easy to implement
+- don't want to lose too many data points
+- potential for censored or biased missing data
+- throwing these 'powerful' missing data out will hamper our model
+- part of the model will be biased to the data we do have
+
+Categorical Variable:
+- add a categorical 'missing category' to the normal data
+- is quantitative - add zero?
+- this can lead to problems if missing data is important to cause
+- one approach is to include an interaction term between the missing value 0 and the categorical column (missing yes / no)
+- create two separate models - one for is missing vs. one for is not missing
+
+this lesson covered:
+- remove missing data completely
+- add categorical variables
+- both attempt to estimate what missing data may be in our model

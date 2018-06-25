@@ -1,0 +1,48 @@
+# Week 6 Notes MCMC
+
+probability based model - used for making comparisons
+- markov chain system
+- based on states of a system
+
+for each state i in the model:
+- pij = transition probability form state i to state j
+- p = {pij} is the transition matrix
+example: p(sunny - rainy) = probability sunny today rainy tomorrow
+  - we can put all transition probabilities together into a transition matrix
+  - can answer what is the  long run of probability of rainy days?
+  - give pi = (.5, .25, .25) = probabilities of (Sunny, Cloudy, Rainy) today
+  - pi*P = (.525, .25, .225) = probabilities of (Sunny, Cloudy, Rainy) tomorrow
+  - (pi*P)*P = (.533, .246, .22) = probabilities of (Sunny, Cloudy, Rainy) the day after tomorrow
+
+all these answers depend on pi (probability vector)
+- calculate (((pi*P)*P)*P)*P... = pi*P^inf
+- instead use the 'steady state'
+- apply P, and get initial vector back = pi*P = pi
+- steady state - probability of being is state i is the same!
+- solve for pi_star vector = pi*P = pi_star, and sumof(pi_star_i) = 1
+- this is the steady state probability vector denotes pi_star
+- true steady state might not exist
+- can't have cyclic behavior
+- every state must be reachable from all others
+
+Key assumption: memoryless
+- previous states do not matter
+- only thing that matters is the current state to determine the next state
+- not a good model for weather
+- can be useful in other ways:
+
+Web Page Example (Google):
+- states are each web page on a topic
+- for web pages i,j
+- pij = p if page i links to page j, 0 if not
+- markov chain = jumping randomly from web page to web page
+- use the steady state probabilities to rank web pages
+- we discover which web page we would be at most often, second most often etc.
+- this is the basic idea behind how google page rank works
+
+
+- LRMC - college basketball ranking system
+- urban sprawl, population dynamics
+- systems not memoryless in short run but not important in long run
+
+- limitation: memoryless

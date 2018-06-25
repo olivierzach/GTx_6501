@@ -1,0 +1,36 @@
+# Week 6 Notes Simulation Basics
+
+simulation - build a model and watch its behavior
+
+types of simulation:
+- deterministic = same inputs give the same outputs (no randomness)
+- stochastic = use when system has randomness
+
+- continuous time simulations: changes happen continuously
+- discrete event simulations: changes happen at certain time points only
+
+- DES:
+- valuable when systems have high variability
+- using average values is not good enough
+- random variability can mess up our processes
+
+Simulations: Arena software for simulation
+- elements of model include:
+- entities: things that move through a simulation
+- modules: parts of process
+- actions
+- resources
+- decision points
+- statistical tracking
+- create and connect elements to each and add in the associated probability distributions
+
+Under the hood:
+- pseudo random number generations, tracking, animation
+
+Replication: number of runs of simulation
+- one replication = one data point (may be unrepresentative)
+- run multiple times to get distribution of outcomes
+- important to validate simulation against actual real life data!
+- use real data to validate your simulation
+- real and simulated averages don't match = problem
+- averages match, variances don't match = problem

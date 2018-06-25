@@ -1,0 +1,54 @@
+# Week 6 Notes: Modeling is Art
+
+example 1 - the diet problem (US Army)
+- needed to satisfy soldiers' nutritional requirements at minimum cost
+- n foods
+- m nutrients
+- aij = amount of nutrient j per unit of food i
+- mj = minimum daily intake of each nutrient j
+- Mj = maximum daily intake of nutrient j
+- ci = cost per-unit of food i
+
+- how do we fit all of this into our variables, constraints, objective function template?
+
+Variables (decisions):
+- xi = amount of food i in daily diet
+- x broccoli = is the amount of broccoli in a solider's daily diet
+
+Constraints:
+- sumof(aij * xi) >= mj for each nutrient j
+- sumof(aij * xi) <= Mj for each nutrient j
+- they require that the daily intake of nutrient j is between lower and upper limit
+- aij * xi = amount of nutrient j the soldiers gets from food i each day
+- add this up over all foods and we have the total daily intake of nutrient j
+- obvious constraint: xi >= 0 == impossible to eat negative amounts of food
+
+Objective Function:
+- minimize sumof(ci * xi)
+- for each food i we multiply the per unit costs ci by the units of the food eaten (xi)
+- this finds the money spent on that food each day
+- adding up over all foods given the total cost of the diet
+
+- we can also consider variety, seasonal costs, taste, combinations of foods
+
+
+
+example 2 - call center scheduling
+- meet forecasted demand di for each day of week i
+- workers work 5 days in a row and then have two days off
+- minimize workers days used
+- variable: xi = number of people working on day i
+- objective function: minimize xd for all days in a week
+- constraints: meet demandL xi >= di for all days i
+- constraints: integer workers = xi is integer for all days i
+- how do we meet the contractual requirements? (5 days working w/ two days off?)
+- this is difficult - we started with the wrong set of variables!
+
+- new variable: xi = number of people who start working on day i
+- example: x sunday = number of people working through Sunday - Thursday
+- new objective function: minimize 5(xi of each day in week)
+- new constraints: meet demand: sumof(xj) >= di
+- example: xfriday + xsaturday + xsunday + xmonday + xtuesday >= demand tuesday
+- obvious constraints: xi >= 0 for all days i, xi is integer for all days i
+- the contractual obligations are written into the model
+- optimization model is an art not exactly a science...yet!

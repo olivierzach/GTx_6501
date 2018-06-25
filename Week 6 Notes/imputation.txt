@@ -1,0 +1,42 @@
+# Week 6 Notes Imputation
+
+- estimate the values of our missing values
+- this is called imputation
+- tradeoff between simplicity and realism
+
+Imputation Approaches:
+
+- first: use the midrange value
+- mean, median, mode
+- hedge against being too wrong
+- easy to compute
+- biased imputation (can only take the mean of the data we have)
+
+- second: predictive model like regression
+- reduce or eliminate the problem of bias
+- use the other factors available to model a new missing data point
+- build, fit, model, validate test just to fill in the missing data!
+- data is used twice - imputation, and to fit the true model!
+- this could lead to overfitting our model
+- does not capture all the variability
+- one imputed value will be given to a variable that might have a lot of variance!
+- example: imputation says income for this set of factors is $100K exactly; real income may range from $75K-$100K
+- imputation w/ variability = perturbation
+- add a certain type of randomness to our imputation estimate
+- example: add normally distributed variation to the imputation estimate
+- imputation will be less accurate on average
+- imputation will be more accurate variability
+
+Not matter which method: no more than 5% of data should be imputed
+we do not want overfitting
+additional errors from the model? layers of models that adds more error?
+how do we account for all these levels of error?
+
+- we can do this with a test data set; not perfect
+- this is as close at we can get to ideal
+
+- THINK: regular "clean" data will most likely have errors even if not explicitly "missing"
+- even our good data can be bad
+- any method for getting data will be wrong or biased
+- data is always imperfect
+- perfect datasets have errors, outliers, missing data

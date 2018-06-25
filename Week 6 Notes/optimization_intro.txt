@@ -1,0 +1,18 @@
+# Week 6 Notes Optimization
+
+Optimization for Predictive Analytics
+- various models can be solved by optimization
+- most statistical applications use optimization to find their answers
+- optimization can be used for prescriptive analytics
+- we can build custom optimization models to model various different problems
+- optimization can be a powerful tool in analytics
+- can find descriptive and prescriptive applications to use optimization for
+- software automates solution and model building
+- optimization software: software automates solution - the model building is up to you!
+
+- note only 3% of companies use prescriptive analytics
+- why?
+- need solid foundation of good data
+- solid foundation of good descriptive and predictive analytics
+- need specialized training to build optimization models
+- optimization is worth learning about and is absolutely necessary for the future!
