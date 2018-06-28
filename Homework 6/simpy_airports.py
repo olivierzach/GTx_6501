@@ -48,11 +48,17 @@ max_scan = 1.0 # scanner max time - uniform distribution
 run_time = 100 # minutes per simulation
 reps = 100 # number of simulation replications
 
-# define variables to store simulation results into
-avg_wait_time = []
-avg_check_time = []
-avg_scan_time = []
-avg_sys_time = []
+
+# initalize global variables - will store answers in these variables later
+checkWait = 0
+scanWait = 0
+sysTime = 0
+timeWait = 0
+timeChecker = 0
+timeCheckerComplete = 0
+timeScan = 0 
+timeScanComplete = 0
+passenger_count = 0
 
 
 
@@ -111,6 +117,8 @@ def passenger(env, name, s): # enviroment, name, system reference
     global timeCheckerComplete
     global timeScan
     global timeScanComplete
+    global passenger_count
+
 
 
     # time passenger arrives
@@ -155,16 +163,25 @@ def passenger(env, name, s): # enviroment, name, system reference
         print('%s complete scanner at time %.2f' % (name, timeScanComplete))
 
 
+    
+
     # time at the end of entire system process
     timeExit = env.now
     print('%s gets to complete system time %.2f' % (name, timeExit))
+    
+
+    
+    
     
     
     sysTime = sysTime + (timeExit - timeArrive)
     checkWait = checkWait + (timeChecker - timeArrive)
     scanWait = scanWait + (timeScanComplete - timeCheckerComplete)
     timeWait = (checkWait + scanWait)
-
+    
+    
+    
+    
 
 
 def setup(env):
@@ -179,6 +196,42 @@ def setup(env):
         env.process(passenger(env, 'Passenger %d' % i, airport))
 
 
-env = simpy.Environment()
-env.process(setup(env))
-env.run(until = run_time)
+# define variables to store simulation results into
+avg_wait_time = []
+avg_check_time = []
+avg_scan_time = []
+avg_sys_time = []
+
+
+for i in range(0, reps):
+
+    env = simpy.Environment()
+    env.process(setup(env))
+    env.run(until = run_time)
+    
+    avg_wait_time.append(timeWait) 
+    avg_check_time.append(checkWait)
+    avg_scan_time.append(scanWait)
+    avg_sys_time.append(sysTime)
+    
+    passenger_count = 0
+    sysTime = 0
+    checkWait = 0
+    scanWait = 0
+    timeWait = 0
+    
+    
+sim_wait_avg = sum(avg_wait_time) / reps
+sim_check_avg = sum(avg_check_time) / reps
+sim_scan_avg = sum(avg_scan_time) / reps
+sim_sys_time = sum(avg_sys_time) / reps
+
+
+print('Average cummulative wait time: ' + str(sim_wait_avg))
+print('Average cummulative check time: ' + str(sim_check_avg))
+print('Average cummulative scan time: ' + str(sim_scan_avg))
+print('Average cummulative system time: ' + str(sim_sys_time))
+
+
+
+
