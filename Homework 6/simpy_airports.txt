@@ -209,10 +209,10 @@ for i in range(0, reps):
     env.process(setup(env))
     env.run(until = run_time)
 
-    avg_wait_time.append(timeWait)
-    avg_check_time.append(checkWait)
-    avg_scan_time.append(scanWait)
-    avg_sys_time.append(sysTime)
+    avg_wait_time.append(timeWait / 125)
+    avg_check_time.append(checkWait / 125)
+    avg_scan_time.append(scanWait / 125)
+    avg_sys_time.append(sysTime / 125)
 
     passenger_count = 0
     sysTime = 0
