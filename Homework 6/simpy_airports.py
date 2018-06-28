@@ -1,0 +1,184 @@
+# -*- coding: utf-8 -*-
+"""
+simulation homework question - isye6501
+
+Created on Mon Jun 25 21:25:37 2018
+
+In this problem you, can simulate a simplified airport security system at a busy airport. Passengers arrive
+according to a Poisson distribution with λ1 = 5 per minute (i.e., mean interarrival rate µ1 = 0.2 minutes)
+to the ID/boarding-pass check queue, where there are several servers who each have exponential
+service time with mean rate µ2 = 0.75 minutes. [Hint: model them as one block that has more than one
+resource.] After that, the passengers are assigned to the shortest of the several personal-check queues,
+where they go through the personal scanner (time is uniformly distributed between 0.5 minutes and 1
+minute).
+
+Use the Arena software (PC users) or Python with SimPy (PC or Mac users) to build a simulation of the
+system, and then vary the number of ID/boarding-pass checkers and personal-check queues to
+determine how many are needed to keep average wait times below 15 minutes. [If you’re using SimPy,
+or if you have access to a non-student version of Arena, you can use λ1 = 50 to simulate a busier airport.]
+
+@author: zolivier
+
+references:
+http://simpy.readthedocs.io/en/latest/simpy_intro/basic_concepts.html
+http://users.iems.northwestern.edu/~nelsonb/IEMS435/PythonSim.pdf
+http://simpy.readthedocs.io/en/latest/examples/carwash.html
+
+"""
+
+# import packages - random to specify probability distributions
+import random
+import simpy
+
+
+## define system contraints
+# checkers = number of boarding pass checkers
+# scanners = number of scanners
+num_checkers = 10
+num_scanners = 25
+r_seed = 500
+
+# define rates
+arrival_rate = 5 # rate is passengers per minute
+check_rate = .75 # rate is minutes per passenger
+min_scan = .5 # scanner min time - uniform distribution
+max_scan = 1.0 # scanner max time - uniform distribution
+
+# define simulation timing
+run_time = 100 # minutes per simulation
+reps = 100 # number of simulation replications
+
+# define variables to store simulation results into
+avg_wait_time = []
+avg_check_time = []
+avg_scan_time = []
+avg_sys_time = []
+
+
+
+
+
+## SimPy simulation framework
+
+
+# create the simulation object - airport includes checkers and scanners
+class Airport(object):
+
+
+    # define the overall resources in our system - checkers and scanners
+    def __init__(self, env):
+
+        # set up the enviroment
+        self.env = env
+
+        # set up checkers as resource = # checkers
+        self.checker = simpy.Resource(env, num_checkers)
+
+
+        # set up scanners as a resource - each scanner has it's own queue!
+        self.scanners = []
+
+        # for each scanner - assign a resource - multiple scanners with 1 resource
+        for i in range(0,25):
+            resource = simpy.Resource(env, capacity = 1)
+            self.scanners.append(resource)
+
+
+
+    # define how long a passenger gets to the checkout
+    def check(self, passenger):
+        yield self.env.timeout(random.expovariate(1/check_rate))
+
+
+    # define how long a passenger takes to scan themselves in
+    def scan(self, passenger):
+        yield self.env.timeout(random.uniform(max_scan , min_scan))
+
+
+
+
+
+
+# define attributes of a passenger - how passenger moves through the system (checkers, scanners)
+def passenger(env, name, s): # enviroment, name, system reference
+
+    # initalize global variables - will store answers in these variables later
+    global checkWait
+    global scanWait
+    global sysTime
+    global timeWait
+    global timeChecker
+    global timeCheckerComplete
+    global timeScan
+    global timeScanComplete
+
+
+    # time passenger arrives
+    timeArrive = env.now
+    print('%s arrives at time %.2f' % (name, timeArrive))
+
+
+
+    with s.checker.request() as request:
+        yield request
+        print('check queue length = %d' % len(s.checker.queue))
+
+        # time passenger arrives at checker
+        timeChecker = env.now
+        print('%s gets to checker at time %.2f' % (name, timeChecker))
+
+        yield env.process(s.check(name))
+
+        # time passenger completes checker
+        timeCheckerComplete = env.now
+        print('%s complete checker at time %.2f' % (name, timeCheckerComplete))
+
+
+
+    min_q = 0
+
+    with s.scanners[min_q].request() as request:
+        yield request
+        print('scanner queue length = %d' % len(s.scanners[min_q].queue))
+
+        for i in range(1, num_scanners):
+            if (len(s.scanners[i].queue) < len(s.scanners[min_q].queue)):
+                min_q = i
+
+        # time passenger arrives at scanner
+        timeScan = env.now
+        print('%s gets to scanner at time %.2f' % (name, timeScan))
+
+        yield env.process(s.scan(name))
+
+        timeScanComplete = env.now
+        print('%s complete scanner at time %.2f' % (name, timeScanComplete))
+
+
+    # time at the end of entire system process
+    timeExit = env.now
+    print('%s gets to complete system time %.2f' % (name, timeExit))
+    
+    
+    sysTime = sysTime + (timeExit - timeArrive)
+    checkWait = checkWait + (timeChecker - timeArrive)
+    scanWait = scanWait + (timeScanComplete - timeCheckerComplete)
+    timeWait = (checkWait + scanWait)
+
+
+
+def setup(env):
+
+    airport = Airport(env)
+
+    i = 0
+
+    while True:
+        yield env.timeout(random.expovariate(1.0 / check_rate))
+        i += 1
+        env.process(passenger(env, 'Passenger %d' % i, airport))
+
+
+env = simpy.Environment()
+env.process(setup(env))
+env.run(until = run_time)
