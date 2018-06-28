@@ -1,0 +1,191 @@
+---
+title: "homework6_isye6501"
+author: "Zach Olivier"
+date: "6/24/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# set up directory and packages
+setwd('~/Desktop/GTX/Homework 6/')
+
+# load packages
+pacman::p_load(tidyverse, kernlab, caret, kknn, modelr, ggthemes, corrplot, MASS, DMwR, mice, VIM)
+
+```
+
+## Question 13.1
+
+Question:
+
+In this problem you, can simulate a simplified airport security system at a busy airport. Passengers arrive according to a Poisson distribution with λ1 = 5 per minute (i.e., mean interarrival rate μ1 = 0.2 minutes) to the ID/boarding-pass check queue, where there are several servers who each have exponential service time with mean rate μ2 = 0.75 minutes. [Hint: model them as one block that has more than one resource.] After that, the passengers are assigned to the shortest of the several personal-check queues, where they go through the personal scanner (time is uniformly distributed between 0.5 minutes and 1 minute).
+
+Use the Arena software (PC users) or Python with SimPy (PC or Mac users) to build a simulation of the system, and then vary the number of ID/boarding-pass checkers and personal-check queues to determine how many are needed to keep average wait times below 15 minutes. [If you’re using SimPy, or if you have access to a non-student version of Arena, you can use λ1 = 50 to simulate a busier airport.]
+
+<br>
+
+Answer:
+
+I attempted the simulation in Python using SimPy. Please see the text file attached for the simulation code. Overall, I was able to set up a decent simulation of the Airport queues between check-in and scan. I did struggle finding the correct way to keep track of the total number of passengers that entered my system for any given simulation of the airport. I ended up hard coding in an average completion count of 125 passengers entering the system to determine the various wait and system times. In practice, some simulations pushed through less or more than this - which would effect the overall wait time averages per person. Overall I simulated the entire system 100 times to get the estimates below.
+
+**In my attempt I saw that a combination of 25 scanners and 10 checkers was adequate to keep wait times for at most 125 people per hour to about 22 minutes of total wait time. This this example the check-in time accounted for an estimate of 18 minutes of the total wait time.** 
+
+
+
+
+<br>
+
+
+## Question 14.1
+
+Question:
+
+
+The breast cancer data set breast-cancer-wisconsin.data.txt from http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/ (description at http://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29 ) has missing values.
+1. Use the mean/mode imputation method to impute values for the missing data. 
+2. Use regression to impute values for the missing data.
+3. Use regression with perturbation to impute values for the missing data.
+4. (Optional) Compare the results and quality of classification models (e.g., SVM, KNN) build using
+(1) the data sets from questions 1,2,3;
+(2) the data that remains after data points with missing values are removed; and (3) the data set when a binary variable is introduced to indicate missing values
+
+<br>
+
+Answer:
+
+The code below shows each of the imputation techniques applied to the breast cancer dataset utilizing the mice package. Results for mean, regression, and regression with perturbation are all printed below. Overall there are 16 missing values to be imputed. Printed are the actual values for each imputation technique. **Mean imputation obviously has the most stability, while regression with pertubation has the most variability in its estimates of the missing data.**
+
+Next I fit a random forest model to each dataset and the non-imputed (NAs omitted) dataset to see which technique performs best. **Overall the cross-validation accuracy for each dataset are extremely close. With my test and training splits and seed the mean imputation dataset performed the best with an accuracy of 2.86%. The regression imputation with no pertubation performed the worst with a cross validation accuracy of 3.81%.** 
+
+Overall it seems the imputation methods offer only marginal improvement over the base model omitting the 16 rows with NAs. I suspect this could be due to the low amount of missing values (2% of total data). Also using a non-parametric random forest may mask the effects of missing data. A parametric model may have been more sensitive to the missing data. 
+
+
+``` {r imputation, message = FALSE}
+
+set.seed(110)
+
+
+# read in the crime data
+cancer_df = read_delim('breast-cancer-wisconsin.data.txt', delim = ',',
+                       col_names = F, na = c('?')) %>% 
+        as.data.frame() %>% 
+        mutate(X11 = ifelse(X11 == 2, 'Benign', 'Malignant'))
+
+
+
+# using mice to see missing data - including complete cases
+md.pattern(cancer_df[,-11])
+
+# plot the missing data
+plot_missing <- aggr(cancer_df, col = c('navyblue', 'red'), numbers = T, sortVars = T)
+
+
+
+
+# imputation using the mice package - mean imputation
+mean_impute <- mice(cancer_df, m = 5, meth = 'mean' )
+
+# look at the values
+mean_impute$imp
+
+
+# imputation using the mice package - regression ignoring model error
+regression_impute <- mice(cancer_df, m = 5, meth = 'norm.predict')
+
+# look at the values
+regression_impute$imp
+
+
+
+# imputation using the mice package - perturbation impute
+pert_impute <- mice(cancer_df, m = 5, meth = 'norm.nob')
+
+# look at the values
+pert_impute$imp
+
+
+
+
+
+# cancer with mean impute
+cancer_mean_df <- complete(mean_impute)
+
+# cancer with regression prediction impute
+cancer_regression_df <- complete(regression_impute)
+
+# cancer with pertubation impute
+cancer_pert_df <- complete(pert_impute)
+
+
+
+
+# set up test of random forest on each dataset to compare cross validation accuracy
+datasets = list(cancer_df, cancer_mean_df, cancer_regression_df, cancer_pert_df)
+
+# set up list to store model results into
+model_output = list(no_imputation = NULL, mean_imputation = NULL, regression_imputation = NULL,
+                    pert_imputation = NULL)
+
+
+# model for loop - fit random forest to each dataset and then extract cv results
+for (i in seq_along(datasets)) {
+        
+        df = datasets[[i]]
+        
+        set.seed(45)
+        
+        # non-imputation classification results
+        inTrain <- createDataPartition(df$X11, p = .75, list = F)
+
+        # training and test splits
+        train <- df[inTrain, ] %>% na.omit()
+        test <- df[-inTrain,] %>% na.omit()
+
+        # fit model
+        rf_fit <- train(
+                X11 ~ ., 
+                method = 'rf',
+                data = train, 
+                metric = 'Accuracy',
+                trControl = trainControl(
+                        method = 'cv', 
+                        number = 10
+                )
+                )
+        
+        model_output[[i]] = rf_fit
+        
+}
+
+
+# view the results of each model - compare cross validation accuracy 
+model_output$no_imputation$finalModel
+model_output$mean_imputation$finalModel
+model_output$regression_imputation$finalModel
+model_output$pert_imputation$finalModel
+
+
+
+
+```
+
+## Question 15.1
+
+Question:
+
+Describe a situation or problem from your job, everyday life, current events, etc., for which optimization would be appropriate. What data would you need?
+
+<br>
+
+Answer:
+
+Developing an optimization model to balance marketing budget, incentive budget, volume requirements, and transaction price requirements would be an excellent application for my current workplace. Many times we ask - how can we support this sales objective without eroding our transaction price?
+
+Having a model that encompasses all these different factors would help us focus on what objectives we need for the current month, quarter or year. This optimization model would likely need to sit on top of other statistical models that provide the inputs to the optimization models. We would need data to support:
+
+        - marketing efficiency 
+        - incentive effiiciency
+        - sales volume estimates
+        - transaction price estimates
