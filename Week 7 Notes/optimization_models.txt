@@ -1,0 +1,125 @@
+# Week 7 Notes: Optimization Part 2
+
+- optimization models can answer prescriptive analytic questions
+- optimization models = variables, constraints, objective function
+- many models require optimization to find the specific parameter or coefficient values that work 'best'
+
+Linear Regression:
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce sum of squared error
+- how do we set this up as an optimization problem?
+- objective function: minimize squared error of the predicted values
+- variables: coefficients a0, a1...am
+- constraints: none for this model
+- statistics model pov = x's are the 'variables'
+- optimization model pov = a's (coefficients) are the 'variables'
+
+LASSO Regression:
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best fit the data
+- LASSO is normal regression model with added constraint
+- variables: coefficients a0, a1...am
+- constraints: restrict the sum of the variables (coefficients in this case)
+- constraint = sumof(|aj|) <= T (some threshold)
+- objective function: minimize squared error of the predicted values
+
+RIDGE Regression:
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce sum of squared error
+- RIDGE is normal regression model with added constraint
+- variables: coefficients a0, a1...am
+- constraints: restrict the sum of the variables (coefficients in this case)
+- constraint = sumof(aj^2) <= T (some threshold)
+- objective function: minimize squared error of the predicted values
+
+Elastic Net Regression:
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce sum of squared error
+- ENR is normal regression model with added constraint
+- constraint adds the LASSO and RIDGE constraints together!
+- variables: coefficients a0, a1...am
+- constraints: restrict the sum of the variables (coefficients in this case)
+- constraint = lambda * sumof(|aj|) + (1- lambda)*sumof(aj^2) <= T (some threshold)
+- objective function: minimize squared error of the predicted values
+
+
+Logistic Regression:
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce prediction error
+- Logistic Regression is and generalized linear model that mutates the straight line fit using the logit function
+- variables: coefficients a0, a1...am
+- constraints: none
+- objective function: minimize squared error of the predicted values (optimize the coefficients)
+- objective function: productof(p(xi)) * productof(1-p(xi))
+- where p(xi) = 1 / 1 + e^-(a0 + sumof(aj * xij))
+
+Support Vector Machine (for hard classification):
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce classification error
+- variables: coefficients a0, a1...am
+- constraints: each data point is correctly classified (hard classification SVM)
+- constraint = (a0 + sumof(aj*xij))*yi >= 1 for each i
+- objective function: maximize the distance or margin between support vectors
+- objective function: maximize sumof(aj^2) (the coefficients)
+
+
+Support Vector Machine (for soft classification):
+- n data points
+- xij = jth factor for data point i
+- yi = response for data point i
+- goal: find coefficients a0, a1...am to best reduce classification error
+- variables: coefficients a0, a1...am
+- constraints: none
+- objective function: minimize sumof(max {0, 1 - (a0 + sumof(aj*xij)*yi} + lambda*sumof(aj^2)
+- objective function: absorbs the margin and the classification errors
+
+
+Exponential Smoothing:
+- fit the values of alpha, beta, and gamma for forecasting
+- variables: alpha, beta, gamma
+- constraints:
+- 0 <= alpha <= 1
+- 0 <= beta <= 1
+- 0 <= gamma <= 1
+- objective function: minimize sumof(xt - xhatt)^2
+- objective function: minimize the prediction error
+
+
+ARIMA:
+- fit the values of mu, theta, phi for forecasting
+- variables: mu, theta, phi
+- constraints: none
+- objective function: minimize sumof(xt - xhatt)^2
+- objective function: minimize the prediction error
+
+GARCH:
+- fit the values of w, beta, gamma for forecasting (variance)
+- variables: w, beta, gamma
+- constraints: none
+- objective function: minimize sumof(simgat^2 - simgahatt^2)^2
+
+Clustering:
+- xij = coordinate j of data point i (value of jth attribute of data point i)
+- variables: zij (coordinates j of cluster center k)
+- variables: yik (1 if point i in cluster k, 0 if not)
+- constraints: sumof(yik) = 1 (all data points i must be assigned to a cluster)
+- objective function:
+- sumofi(sumofk(yik * pthroot((sumof(xij - zjk)^p))))
+- minimize the total distance from data points to their cluster centers
+
+
+optimization is a key component of most statistical techniques!
+some optimization are easier and faster to solve than others - why?
+how to we classify optimization models based on structure - how do we determine which ones we will solve faster?

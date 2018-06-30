@@ -1,0 +1,89 @@
+# Week 7 Notes: Non-Parametric Methods
+
+- hypothesis tests assume the underlying distribution we are testing against
+- sometimes this is not the case
+- all we have is responses and we don't have a good model for the distribution
+- these are non-parametric tests
+
+McNemar's Test:
+- used to compare results on pairs of responses
+- data points where two different approaches were used on the same thing
+- ex. viruses on Treatment A and Treatment B - which is best?
+- Treatment A: 61% of virus killed
+- Treatment B: 68% of virus killed
+- is B actually better or is the difference due to random chance?
+- ...it depends...
+
+Scenario 1:
+- consider the case:
+- 32 cases neither treatment worked
+- 61 cases: both A and B worked
+- 7 cases: B worked but A did not
+- 0 cases: A work and B did not
+- in this case we could conclude B is better (p = .02) - accept
+
+Scenario 2:
+- consider the case:
+- 12 cases neither treatment worked
+- 41 cases: both A and B worked
+- 27 cases: B worked but A did not
+- 20 cases: A work and B did not
+- in this case we could conclude B is not better (p = .38) - reject
+- it is hard to tell which treatment is actually better
+
+- McNemar's Test:
+- throws out all the cases where the results are the same
+- then tests using the binomial distribution to see whether we'd expect results this extreme
+- Scenario 1: 2% chance we'd see these results by luck
+- Scenario 2: 38% chance we'd see these results by luck (good chance)
+- we don't need to know anything about the underlying distribution
+- it is just a comparison of paired results
+
+
+Wilcox Test:
+- Wilcoxon Signed Rank Test for Medians
+- assumption: distribution is continous and symmetric
+- is the median of the distribution different from m?
+- given responses y1...yn
+  1. rank |y1 - m|, ..., |yn - m| from smallest to largest
+  2. W = sumof_yi>m(rank(yi - m)) = sum of all ranks only where yi > m
+  3. p-value test for W
+- if the probability p of getting a sum of ranks at least as extreme as W is small...
+- then we can say that the median is probably different from m
+- p-value - approximate normal distribution table
+- can use wilcox test to test two sets of paired samples having the same medians?
+- are the ranks of two observation sets are likely to be different
+- given pairs (y1, z1), ... ,(yn, zn) from observatins y and z
+- use |y1 - z1|, ..., |yn - zn| for rank test
+
+when do we use these tests?
+- numeric data = wilcox
+- categorical / binary = mcnemar
+
+
+Mann-Whitney test:
+- all observations are independent of each other
+- rank both sets of values and compare to the distribution
+- two data sets but not paired samples
+- given independent observations y1,...,ym and zi,...,zm
+  1. rank all observations together y1, ..., yn, z1,...,zm
+  2. U = smaller of two adjusted rank sums:
+     U = min{Uy, Uz}
+         Uy = sumof(rank(yi) - n(n+1)/2)
+         Uz = sumof(rank(zj) - m(m+1)/2)
+  3. find significance of U - need software or table
+
+
+
+Summary:
+- Non-parametric = no underlying distribution
+- even when nothing is known about underlying distribution we can use these tests
+- two data sets:
+- MN test = paired yes / no
+- WSRT = paired numeric data
+- MWT = unpaired data
+- one data set:
+- WSRT = compare possible median
+- there are more non-parametric tests too
+- even when we do not know anything about the underlying processes that create the observations...
+- we can still use relative ranks or outcomes of two competing approaches to see whether the difference between them is significant

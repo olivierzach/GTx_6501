@@ -1,0 +1,75 @@
+# Week 7 Notes: Classification of Optimization Models
+
+- optimization models:
+- engine of statistical models
+- can be used 'on their own' to model prescriptive problems
+- based on the math some optimization models can take longer than others
+
+how do we classify optimization models?
+- x = vector of variables (variables)
+- objective function: minimize or maximize f(x) our objective function (objective function)
+- variables x must belong to a set X: subject to x in X (constraint)
+
+Linear Program:
+- f(x) is a linear function
+- constraint set X is defined by linear equations and inequalities
+- minimize or maximize C + sumof(ci * xi)
+- easy and fast to solve even for very large instances
+
+Convex Quadratic Program:
+- f(x) is a linear function
+- constraint set X is defined by linear equations and inequalities
+- minimize f(x) or maximize -f(X)
+- easy and fast to solve even for very large instances; not as fast as linear programs
+
+Convex Program:
+- objective function f(x) is:
+- concave (if maximizing)
+- convex (if minimizing)
+- constraint set X is a convex set
+- easy to solve but solutions can take a lot longer
+
+Integer Program:
+- linear program plus: some of all variables restricted to only take integer values
+- variables can be binary (0 or 1)
+- more difficult to solve even with good software (and takes a long time to solve)
+
+
+General Non-Convex Program:
+- optimization problem is not convex
+- extremely hard to find optimal solutions
+
+
+Optimization Rank:
+1. linear
+2. convex quadratic
+3. convex
+4. integer
+5. general non-convex
+
+what do we do if an optimization problem is too hard to solve?
+- heuristic: rule of thumb process
+- usually gives adequate solutions for certain analytic problems
+- not guaranteed to find the optimal solution
+
+Network Program:
+- type of a linear program
+- solved extremely quickly = more quickly than normal linear programs
+- location (node / vertex)
+- connection (arc /edge)
+- xij: variable for arc from i to j (how much flow there is)
+- constraints: flow into a node = flow out of a node
+- constraints: flow on arc between min and max is allowable
+- objective function: linear function of variables
+- this is a network model we can solve quickly using specialized algorithms
+- if the data is all integer then there will be an optimal solution where all the variables have integer values - even without us enforcing this constraint
+
+common network models:
+- Google Maps, GPS
+- optimal route = shortest route problem
+- assignment model = which workers get which job to maximize workforce efficiency
+- maximum flow model = how much of oil can flow through a complex network of pipes?
+
+what happens if we are not certain of our input data?
+- there might be some uncertainty in our estimates, forecasts, system behavior?
+- how do we deal with these uncertainty problems?

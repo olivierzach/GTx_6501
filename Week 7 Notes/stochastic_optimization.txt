@@ -1,0 +1,61 @@
+# Week 7 Notes: Stochastic Optimization
+
+- what do we do when we do not know the input value in optimization?
+- how does optimization handle uncertainty
+- sometimes solutions are good with "fixed" parameters
+- but sometimes we need to model our uncertainty
+
+Model Conservatively:
+- call center worker constraint
+- xFri + xSat + xSun + xMon + xTues >= dTue
+- xi = number of workers starting 5-day shift on day i
+- di = expected demand on day i
+- we can alter this model to be more conservative
+- xFri + xSat + xSun + xMon + xTues >= dTue + theta
+- where theta is a set of extra workers just in case
+- we are more likely to have too many workers sometimes but we are 'covered' on days with more than expected demand
+- if we have a good estimate of the probability distribution for demand...
+- we can write a chance constraint the probability of having enough workers to meed demand must be some value p
+- in this case we 'hand pick' the value of theta or p that make sense for our problem
+
+
+Scenario Modeling:
+- finding some or many scenarios and optimize over all of them
+- ex. software launch
+- scenario 1: two small recurring bugs
+- scenario 2: one major bug 3 days after launch
+- scenario 3: two major, immediate bugs
+- scenario 4: catastrophic scenario after 10,000 signups
+- for each scenario we can model expected demand
+- xi = number of workers starting 5 day shift on day i
+- dis = expected demand on day i in scenario s
+- once we have all scenarios we can force the model to satisfy all scenario demands
+- this is a robust solution to satisfy all demands on all days
+- the robust solution to cover all scenarios may be expensive to bring to reality
+- we can add these costs into our model!
+- optimize expected cost:
+- minimize 5(xSun + ... + xSat) + sumof(c(psun,s * ysun,s + ... + psat,s*ysat,s))
+- where:
+= c = cost for each worker below demand level
+= yis = expected worker shortfall on day i in scenario s
+= pis = probability of scenario occurring in the object function
+- difficulty is the amount of scenarios each with different sets of constraints
+
+- optimization are mathematical programming models
+- variables, constraints, objective functions
+
+- there are other optimization models that are not strictly mathematical programming
+- dynamic programming: states (the exact situations and values), and decisions (choice of next state)
+- Bellman's equation means we can determine optimal decisions
+- this model requires the variables are fixed (not variable, no uncertainty)
+- we make a decision without knowing what the next state will be
+- as long as we know the probability of going from one state to the other
+- we can modify our normal dynamic programming to account for this uncertainty
+- this is stochastic dynamic programming
+- if we have a discrete set of states and decisions and the probabilities only depend on the current state and decision
+- then we have a Markov decision process
+- there are many variants of dynamic programming
+
+- there are many ways to incorporate uncertainty into our optimization models
+- some use mathematical programming
+- some use dynamic programming

@@ -1,0 +1,36 @@
+# Week 7 Notes: Optimization Algorithms
+
+- how are optimization solved?
+- different optimizations problems require different algorithms to solve
+- most optimization algorithms work in a similar way
+
+Solving Optimization Models:
+- here are the main steps: start > step in 'right' direction > iterate until stopping limits
+- create a first solution: can be simple / bad / infeasible
+- repeat by 'moving' in a direction by a certain 'step size'
+- first find a improving direction t
+- using a step size theta take a step in that direction
+- we arrive at our new solution
+- new solution = old solution + theta * t
+- new solution = old solution + (step size * improvement direction)
+- keep repeating this process until solution does not change much or we run out of time
+
+Newton's Method: example of an optimization algorithm
+- finding root of f(x)
+- current solution xn at step n
+- xn+1 = xn - 1(f(xn)/f'(xn))
+- where 1 is the step size and f'(xn) is the improving direction!
+- xn is the current solution!
+
+Convergence:
+- depending on the 'form' of our optimization problem we might be able to guarantee a closed form solution
+- ex. convex optimization problem: guaranteed
+- ex. non-convex optimization problem: not guaranteed
+- may converge to infeasible solution, or a local solution (not global or the optimal solution)
+- local solution: solution better than others close to it (no clear improving direction)
+- but may not be better than a solution that is farther away!
+
+- finding solutions may be fast or slow depending on the optimization problem
+- integer programs: can be long
+- linear programs: often fast
+- tree based problems (often integer): require direction and step size can take a lot longer
