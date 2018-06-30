@@ -53,7 +53,7 @@ Wilcox Test:
 - p-value - approximate normal distribution table
 - can use wilcox test to test two sets of paired samples having the same medians?
 - are the ranks of two observation sets are likely to be different
-- given pairs (y1, z1), ... ,(yn, zn) from observatins y and z
+- given pairs (y1, z1), ... ,(yn, zn) from observations y and z
 - use |y1 - z1|, ..., |yn - zn| for rank test
 
 when do we use these tests?
