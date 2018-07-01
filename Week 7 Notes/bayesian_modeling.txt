@@ -1,0 +1,66 @@
+# Week 7 Notes: Bayesian Modeling
+
+- bayesian models are sometimes counterintuitive
+
+Bayesian Probability:
+- based on basic rule of conditional probability
+- bayes' rule
+- P(A|B) = P(B|A) * P(A) / P(B)
+- example: medical test
+- true positives: 98%
+- false positives: 8%
+- 1% of the population and 8.9% of people test positive
+- if someone tests positive what is the probability someone actually has the disease?
+- write out the equation in bayes' rule
+- A = has the disease
+- B = tested positive
+- P(A|B) = P(B|A) * P(A) / P(B) = 98% * 1% / 8.9% = 11%
+- even after testing positive a person only has a 11% of having the disease
+- why?
+- so many more people don't have the disease = many more false positives than true positives
+
+
+Empirical Bayes Modeling:
+- overall distribution of something is known or estimated
+- only a little data is available for the problem
+- ex. predicting basketball outcomes NCAA
+- difference X in points scored by home team and road team
+- approximately normal: X ~ N(m + h, simga^2)
+- h = home court advantage
+- m = true difference in the teams' strength (unknown)
+- simga^2 = variance
+- bayes rule allows us to figure out the unknown m
+- first model the difference between teams' strengths m ~ N(0, tau^2)
+- then look at observed data:
+- x = observed point difference in game
+- m = real difference between two teams, with m != x
+- bayes' rule: look for the probability of having a true points difference given the observation x
+- P(M = m | X = x) = P(X= x | M = m)*P(M=m) / P(X = x)
+- probability of m given x!!
+- if team a beats team b by x points we could find the distribution of how much one team is better
+- we could also integrate that distribution (zero to infinity) to show the probability that a team is actually better!
+- P (home team better | X = x) = integral(P(M = m | X = x)* dm)
+
+what are we actually saying?
+- home team won by 20 points
+- estimated home court advantage h = 4 points
+- standard deviation in team strength difference tau = 6 points
+- standard error from random variance sigma = 11 points
+- of the 20 point victory:
+- about 4 points was home court advantage
+- about 12.5 points due to random variation
+- only 3.5 points due to the difference between teams
+- this seems counterintuitive: 20 points win just 3 point difference?
+- there is a lot more variance due to randomness
+- 20 point win is more likely to happen due to randomness
+- bayes rule shrinks the estimate to a more normal distribution
+
+Summary:
+- take a single observation
+- combine with broader set of observations
+- then make a deduction or prediction
+- bayesian models work especially in the absence of lots of data
+
+
+P(A) = prior distribution
+P(A|B) = posterior distribution 

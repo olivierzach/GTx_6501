@@ -1,0 +1,73 @@
+strategy# Week 7 Notes: Competitive Models
+
+- competitive decision making
+- previous models = 'us against the data'
+- descriptive models = get understanding of reality
+- predictive models = find hidden relationships and predict the future
+- prescriptive models = find the best thing to do assuming the system does not react
+- what if the system reacts intelligently?
+- we need to use analytics to consider all sides of the system
+
+ Examples:
+ - pricing examples
+ - using past purchase data and competitor data to price products
+ - one price is set competitors may change their price more - giving different results than the model
+- government = corporate tax policies
+- companies need to decide how to store and spend their money based on tax revenue of the government
+- employee incentives to change behavior
+
+- need to consider not just your own situation but the competitive situation
+- these situations need competitive decision making = game theory
+- cooperative game theory = competitive and cooperative game theory
+
+Timing:
+- make decisions simultaneously
+- can't change once made
+- strategy = counter strategy > counter-counter strategy = best strategy after many iterations
+- sequential game = decision made in series
+
+Types of Strategies:
+pure strategy = just one choice
+mixed strategy = randomize decisions according to probabilities
+example = rock paper scissors
+pure strategy will eventually lose
+mixed strategy will work best
+
+Information Levels:
+- perfect information: know all the information for everyone's situation
+- imperfect information: some have more information than others - competitive advantage - not symmetric across competitors
+
+No Sum and Nero Sum:
+- whatever one side gets the other side loses and vice versa
+- bet $1 on game: get dollar vs. lose dollar
+- non-zero sum: total benefit might be higher or lower
+- example = economics
+
+Summary:
+competitive decision making = game theory
+how do we determine the best strategy? = optimization models
+we want to find the optimal strategy!
+
+
+
+# Week 7 Notes: Game Theory Models
+
+basic demo of game theory models
+how does it work
+what analysis is involved?
+
+Game Theory Example:
+- two gas stations
+- set price: $2 or $2.50
+- same price = 50 / 50 demand
+- otherwise = all demand will go to lower priced one
+- what's the best price to choose?
+- talk to each other and set at $2.50 - half demand at the higher profit margin
+- it matters the cost to determine what the price should be chosen!
+- stable equilibrium = no incentive to change
+- prisoner's dilemma = incentive to agree to higher price and then back out and charge the lower price
+- can choose any price points they want
+- both can keep lowering prices until price is about equal to the cost
+- "race to the bottom" = simple model will cause each to lower prices until they meet the margin
+- competition drives down price for consumers
+- game theory says there is incentive to charge slightly lower price than competition

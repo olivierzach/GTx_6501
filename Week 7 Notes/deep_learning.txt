@@ -1,0 +1,30 @@
+# Week 7 Notes: Neural Networks and Deep Learning
+
+- used to react to patterns that we don't even understand
+- CAPTCHA type of questions
+- idea of deep learning is to train a system to react to without knowing what it is reacting to
+- powerful in image recognition and speech recognition, NLP
+
+
+Neural Networks:
+- neural networks are modeled after the way neurons work in our brains
+- Artificial Neural Network
+- three levels of neurons:
+- input level, hidden level, output level
+- input > hidden > output
+- each input accepts a single piece of information
+- each neuron: gets inputs from previous layer > calculates function of weighted inputs > gives it output to next layer
+- there might be several layers of hidden layer neurons
+- finally we reach the output is the combination of all weighted hidden layer results
+- the output layer chooses the 'best' answer based on the results from all the hidden layers
+- then the results are fed back through the entire system and re-weighted based on the incorrectness of the first output
+- simple is gradient descent to do this
+- if the network learns well with enough data all of the weights will be adjusted so that the network generates correct outputs from the input
+- require a lot of data to train
+- hard to choose and tune the learning algorithm: re-weight too fast or too slow can be problematic
+
+
+Deep Learning:
+- idea of neural networks adapted for more layers
+- similar approach to neural networks = input > "deep" layers > output > restart with re-weights
+- powerful in NLP, speech, image recognition

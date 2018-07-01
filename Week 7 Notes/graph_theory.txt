@@ -1,0 +1,34 @@
+# Week 7 Notes: Communities in Graphs
+
+- analysis of large interconnected networks
+- automated ways of finding highly interconnected subpopulations
+- social media 'influencers'
+- disease outbreak
+- model to automatically find 'communities'
+
+- community = a set of circles that's highly connected within itself
+- graph = collection of circles, lines of the community
+- circles = nodes / vertices
+- lines = arcs / edges
+- clique = a set of nodes that all have edges between each other
+
+- we don't need full clique (complete)
+- goal is to decompose the graph into a community
+- we do this using the Louvain Algorithm
+- the goal of the Louvain Algorithm is to maximize the modularity of a graph
+
+Louvain Algorithm:
+- aij = weight on the arc between nodes i and j
+- if there  no arc between i and j then aij = 0
+- wi = total weight of arcs connected to i
+- W = total weight of all the arcs in the graph
+- Modularity = (1 / 2W) * sumof(i,j in same community * (aij - wi*wj / 2W))
+- modularity = measure of how well the graph is separated into communities or modules that are connected internally  but not connected much between each other
+- Step 0: each node is its own community
+- Step 1: make biggest modularity increase by moving a node from its current community to an adjacent community
+- Step 2: repeat this process until there are no more increases in modularity
+- Step 3: each community is a super node and repeat step1 using super nodes
+- louvain is a heuristic:
+- not guaranteed to find the absolute best partition of a graph into a community
+- gives very good solutions very quickly
+- best for finding communities inside a large network
