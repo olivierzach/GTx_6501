@@ -1,0 +1,44 @@
+# ISYE6501 Homework #7: Optimization in PuLP
+
+Question 15.2
+The data is given in the file diet.xls.
+1. Formulate an optimization model (a linear program) to find the cheapest diet that satisfies the maximum and minimum daily nutrition constraints,
+ and solve it using PuLP.
+
+2. Please add to your model the following constraints and solve the new model:
+    a. If a food is selected, then a minimum of 1/10 serving must be chosen.
+    b. Many people dislike celery and frozen broccoli - one, but not both, can be selected.
+    c. At least 3 kinds of meat/poultry/fish/eggs must be selected.
+
+
+1. Formulated optimization model minimal cost is $4.34.
+
+Constraints are:
+ - maximum and minimum daily values of each nutrient
+
+ Optimization Solution:
+ 52.64371 units of foods_Celery,_Raw
+ 0.25960653 units of foods_Frozen_Broccoli
+ 63.988506 units of foods_Lettuce,Iceberg,Raw
+ 2.2929389 units of foods_Oranges
+ 0.14184397 units of foods_Poached_Eggs
+ 13.869322 units of foods_Popcorn,Air_Popped
+
+
+2. Formulated optimization model minimal cost is $4.51.
+
+Constraints are:
+ - maximum and minimum daily values of each nutrient
+ - chosen foods bounded between .1 and M(large constant)
+ - only one of broccoli and celery can be in the optimal diet
+ - at least three proteins must be selected in the optimal diet
+
+ Optimization Solution:
+ 42.399358 units of foods_Celery,_Raw
+ 0.1 units of foods_Kielbasa,Prk
+ 82.802586 units of foods_Lettuce,Iceberg,Raw
+ 3.0771841 units of foods_Oranges
+ 1.9429716 units of foods_Peanut_Butter
+ 0.1 units of foods_Poached_Eggs
+ 13.223294 units of foods_Popcorn,Air_Popped
+ 0.1 units of foods_Scrambled_Eggs
