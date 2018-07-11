@@ -1,0 +1,40 @@
+# Week 8 Notes Discussion Format
+
+- course covered many analytics models
+- overview of analytics has been complete
+- now we are in the case study part of the course
+- think carefully about how to approach each case using analytics
+- what models would fit the problem best?
+- what data would we need for our models to work well?
+
+- use two tools: discussion form and analytics knowledge
+
+- think of answer first
+- discuss with small group
+- discuss with larger group
+- at the end write up own solutions for homework
+
+formatting framework:
+- given {data}, use {model / technique}, to {result}
+
+
+example:
+- given {child's age, sex, height}...
+- use {linear regression}...
+- to {predict the child's height}
+
+example:
+- given {amount of crude oil available at port}...
+- use {an optimization model}...
+- to {determine the best pickup, delivery, routing schedules}
+
+example:
+- given {traffic data on websites}...
+- use {ARIMA and GARCH}...
+- to {predict the mean and variance of each website 5 min into the future}
+- then
+- given {predictions from ARIMA / GARCH}...
+- use {simulation model}...
+- to {suggest the break-even price for advertising on each of the web sites in the next 5 minutes}
+
+- use this format to guide your thinking and describe ideas to others 

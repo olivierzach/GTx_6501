@@ -1,0 +1,92 @@
+# Week 8 Notes: Power Company Case Study
+
+- some customers don't pay their bills
+- concerned with people who could pay but don't
+- problem: turn off power only for people who will never pay only
+- problem: logistic - can only shut off power manually by workers
+- how can we solve this problem?
+
+- which shut offs should be done each month?
+- schedule accordingly based on travel
+- how should we prioritize shutoffs
+- what data will we need
+- what models will we need
+- use given, use, to format
+
+- approaches to identifying customers: pros + cons
+- need to find customers who can pay but aren't going to
+- data:
+- credit score, income, past defaults history, past power bill history
+- zip code, value of home, marital status, age, sex, race
+- be careful about illegal modeling: cannot model on race, sex, age
+- cannot even use factors that are highly correlated with race
+- need to rely on payment history, credit score
+
+- models:
+- classification = pay, can pay but won't, not able to pay
+- KNN, SVM, logistic regression
+- clustering
+- single model approach or tree based approach
+- hybrid approaches: unsupervised clusters then build model on these clusters
+
+- unsupervised models:
+- clustering = quick, but not the exact clusters we may want
+- classification = clear decision
+- logistic regression = requires a threshold (can optimize based on cost)
+
+- how much cost will there be for leaving power on or off?
+- there are many costs associated with shutting off power
+- if we turn off power - we lose that $$ if customer pays - especially for high volume account
+- keep power on - but never pay - we lose that $$ if customer never pays - especially for high volume account
+
+
+Power Cost Estimation:
+
+- time series modeling with long enough history
+- given credit, financial and payment history...
+- use exponential smoothing or ARIMA...
+- to estimate the amount of power a customer will use in the next month
+
+- take variance into account
+- given credit, financial and payment history...
+- use GARCH model...
+- to estimate variance of power consumption in the next month
+
+- will little data
+- given credit, financial and payment history...
+- use linear regression / tree based model...
+- to estimate the amount of power a customer will use in the next month
+
+- time series:
+- good if enough data exists
+- not effective for longer term forecasts
+
+- regression:
+- can be effective if not a lot of data
+- normalize to account for seasonality
+
+- hybrid:
+- model payment and power consumption together
+- will have lots of zero values plus a range of others
+
+
+which customers power should be shut off?
+- constrained by cost of shut offs and power consumption = priority shutoffs
+- based on expected cost of leaving on vs. powering off
+- need to base this in reality - drive time for technicians
+- closer shutoffs with less priority might be more valuable vs. highest priority very far away
+- vehicle routing model = optimization / logistics
+- what data?
+- drive time by speed and time of day
+- time to shut off power
+- estimate of future usage
+- probability of non-payment
+- optimization model: what is the highest value set of customers we can shut off?
+- binary variable for each customer
+- objective function: cost difference between shutting off power or not times our customer id binary variable
+- constraints are hard to write = can workers do all shut off the model suggests?
+- clustering: cluster on physical locations = modify the optimization model based on clusters
+- simulation: variability in drive times, shut off times, power usage = distribution fitting = can simulate and model this = evaluate the model solutions
+- use the model to determine how many new workers to hire = benefit > cost of workers = create new jobs
+
+# logistic = who will not pay > linear regression = power usage next month > vehicle routing optimization = maximize total value of shutoffs
