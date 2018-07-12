@@ -1,0 +1,27 @@
+Homework #8 ISYE6501
+Power Company Case Study
+Zach Olivier
+7/10/2018
+
+
+My analytics solution for the Power Company follows this general format:
+
+	- Given {Customer Payment History, Family Composition, Age, Estimated Household Income,
+    Estimated Home Value, average Energy Consumption, Energy Consumption Trends,
+    Macro-Economic Factors, Weather, Energy Costs}
+	- Use {flexible classification model - random forest, SVM, Gradient Boosting}
+  - To {identify customers who are most likely to never pay their energy bill}
+  - Given {Customer Location, Probability to never pay}
+  - Use {clustering algorithm}
+  - To {group clusters of high probability no pay customers together in close areas - visualize these geographically}
+
+The end result a recommendation each month to send the minimum amount of workers to the least costly,
+highest value geographic clusters to perform shut-offs. I would also recommend trying to preemptively solve the problem by
+pushing a message to high probability customers asking them to state their intentions of payment. Using this outreach and the
+model's classification probabilities - we could set up an experiment to optimize which customers would be most responsive to our
+outreach. Not only would sending a message to customers be less costly - the results from this experiment could also add additional
+information to help us decide which clusters, and how many technicians we should send on the shut down run.
+
+Here are the components of my analytics solution - aiming to explain the thought process for my choices.
+
+Data:
