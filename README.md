@@ -1,5 +1,5 @@
 # GTx_6501
-Introduction to Analytics Modeling - Georgia Tech OMDS
+Analytics Modeling - Georgia Tech OMDS
 
 Course 1 of 3 in the Georgia Tech MircoMasters program
 
